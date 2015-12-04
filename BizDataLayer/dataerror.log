@@ -1,0 +1,11 @@
+Exception caught @16:03:28 10.25.15
+    Message: An error occurred while fetching record data
+    SQL:  SELECT bs_chat.userId, bs_chat.text, bs_chat.createdAt, bs_users.userName
+             FROM bs_chat, bs_users
+             WHERE bs_chat.userId = bs_users.userId AND roomNumber = 1
+    File: /home/ans2759/Sites/759/battleship/BizDataLayer/chatData.php
+    Line: 20
+    Trace: #0 /home/ans2759/Sites/759/battleship/svcLayer/chat/chatUtil.php(26): getChatData()
+#1 [internal function]: sendChat('{"text" : "yo"}', '129.21.12.26', '00690001a16an20...')
+#2 /home/ans2759/Sites/759/battleship/mid.php(9): call_user_func('sendChat', '{"text" : "yo"}', '129.21.12.26', '00690001a16an20...')
+#3 {main}

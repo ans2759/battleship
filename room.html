@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <script src="http://code.jquery.com/jquery-latest.js"></script>
+  <title>Chat Room</title>
+
+  <script>
+  $(document).ready(function(){
+    getChat();
+    getUsers();
+    
+    $('#sendChat').click(function(){
+      var chatText = $('#chatText').val();
+      if(!chatText){
+        //form validation
+        console.log("no chat data");
+      }
+      else {
+        $('#chatText').val("");
+        sendChat(chatText);
+      }
+    });
+
+    $('#logout').click(function(){
+      ajaxCall("GET", {method:"logout", a:"login"}, callbackLogout);
+    });
+
+  });
+
+  function callbackLogout(data, status){
+    location.href = "./login.html";
+  }
+
+  function getChat(){
+    ajaxCall("GET",{method:"getChat",a:"chat"},callbackChat);
+  }
+
+  function getUsers(){
+    ajaxCall("GET", {method: "checkUsers", a:"chat"}, callbackUsers);
+  }
+
+  function callbackUsers(data, staus){
+    var h = '';
+    for(i=0;i<data.length;i++){
+      h += data[i].userName + "<br/>";
+    }
+    $('#users').html(h);
+    setTimeout(getUsers, 10000);
+  }
+
+  function callbackChat(data, status){
+    var h='';
+      for(i=0;i<data.length;i++){
+        h+=data[i].userName+' says: '+data[i].text + '<span style="color:gray"> at time ' +data[i].createdAt+'</span><br/>';
+      }
+      $('#text').html(h);
+      setTimeout('getChat()',2000);
+  }
+
+
+  function ajaxCall(GetPost,d,callback){
+    $.ajax({
+        type: GetPost,
+        async: true,
+        cache:false,
+        url: "mid.php",
+        data: d,  
+        dataType: "json",
+        success: callback
+    });
+  }
+
+  function sendChat(text) {
+    var d = '{"text" : "' + text + '"}';
+
+    ajaxCall("POST", {method:"sendChat", a:"chat", data: d}, callbackChat);
+  }
+
+
+  </script>
+
+  <style>
+    #pagewrap {
+      width: 100%;
+      max-width: 700px;
+    }
+
+    #text {
+      height:50%;
+      max-height: 500px;
+    }
+
+    #textInput {
+      float: left;
+    }
+
+    #users {
+      float: right;
+    }
+  </style>
+</head>
+<body onload="">
+<div id="pagewrap">
+  <div id="text">
+  </div>
+  <div id="textInput">
+    <input type="text" name="chatText" id="chatText" />
+    <input type="button" name="sendChat" id="sendChat" value="ENTER"/>
+    <input type="button" name="logout" id="logout" value="LOG OUT" />
+  </div>
+  <div id="users">
+  </div>
+</div>  
+</body>
+</html>

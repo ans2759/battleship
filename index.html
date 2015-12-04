@@ -1,0 +1,57 @@
+<html>
+  <head>
+    <title>test</title>
+    <script src="http://code.jquery.com/jquery-latest.js"> 
+    </script>
+    <script>
+    //working here:  http://kelvin.ist.rit.edu/~dsbics/archDoneException/
+	$(document).ready(function(){
+		getChat();
+		getTurn();
+     });
+
+     //chat
+     function getChat(){
+     	ajaxCall("POST",{method:"getChat",a:"chat"},callbackChat);
+     	//above shouldn't be a post (no data changing on server) but leaving it to show either GET or POST will work!
+     }
+	function callbackChat(data, status){
+     	var h='';
+     	for(i=0;i<data.length;i++){
+     		h+=data[i].name+' says: '+data[i].message+'<span style="color:gray"> at time '+data[i].timeStamp+'</span><br/>';
+     	}
+     	$('h5').html(h);
+     	setTimeout('getChat()',2000);
+	}
+	//get turn
+	function getTurn(){
+		ajaxCall("GET",{method:"checkTurn",a:"game",data:"55|43"},callbackTurn);
+	}
+	
+	function callbackTurn(data, status){
+		document.getElementById('turn').innerHTML='Your turn: '+data[0].turn;
+		if(data[0].turn!='true') setTimeout('getTurn()',2000);
+	}
+
+	//util
+	//d is data sent, looks like {name:value,name2:val2}
+	function ajaxCall(GetPost,d,callback){
+		$.ajax({
+  			type: GetPost,
+  			async: true,
+  			cache:false,
+  			url: "mid.php",
+  			data: d,  
+  			dataType: "json",
+  			success: callback
+		});
+	}
+     
+    </script>
+  </head>
+
+  <body>
+    <h5></h5>
+    <div id="turn">Your turn:</div>
+  </body>
+</html>
