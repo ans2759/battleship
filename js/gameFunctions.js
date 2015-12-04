@@ -199,7 +199,7 @@ function checkHit(x,y,which){
 
 function addShot(cellId){
 	//if it is my turn and I still have shots remaining
-	if(turn === 1 && shotsArr.length < shotsArrLen) {
+	if(turn === 1 && shotsArr.length < shotsArrLen && shotsArr.indexOf(cellId) === -1) {
 		shotsArr.push(cellId);
 		if(shotsArr.length === shotsArrLen) {
 			//document.getElementById("#fire").style.diplay = 

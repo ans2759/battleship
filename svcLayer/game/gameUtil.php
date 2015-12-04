@@ -100,7 +100,7 @@ function finalizePosition($d, $ip, $token) {
 						return "ship_local_error";
 					}
 					else {
-						if($i != 0) {
+						if($i != $ship['row']) {
 							$shipStr .= ",";
 						}
 						//point is clear, now mark as occupied
@@ -116,7 +116,7 @@ function finalizePosition($d, $ip, $token) {
 						return "ship_local_error";
 					}
 					else {
-						if($j != 0) {
+						if($j != $ship['col']) {
 							$shipStr .= ",";
 						}
 						//point is clear, now mark as occupied
@@ -196,7 +196,7 @@ function fireShots($d, $ip, $token) {
 		$shots = explode("|", $data[1]);
 
 		//we need to retrieve game data to check against shots
-		$game = getGameData($gameId);
+		$game = json_decode(getGameData($gameId));
 		foreach($game as $player) {
 			if($player->player == $_SESSION['user_id']) {
 				//these are your boards
@@ -208,20 +208,61 @@ function fireShots($d, $ip, $token) {
 			}
 		}
 
-		//check if shots are legal
-		$previousShots = explode("|", $you->shots);
-		for($i = 0; $i < count($shots); $i++) {
-			if(in_array($shots[$i])) { //need to check for shot validity on board
-				//shot has alread been taken
-			}
-			else {
+		//is it my turn?
+		if($you->turn == 0) {
+			//it's not my turn
+			return "turn_error";
+		}
+		else {
+			//it is my turn
 
+			//check if shots are legal
+			$boardArr = array();
+			$arr = explode(",",$opp->board);
+			foreach($arr as $row) {
+				array_push($boardArr, str_split($row, 1));
+			}
+
+			/*$ships = array();
+			$arr = explode("|", $opp->ships);
+			foreach($arr as $ship) {
+				array_push($ships, explode(",", $ship));
+			}
+			for($i = 0; $i < count($arr); $i++) {
+				$ship = explode(",", $)
+			}*/
+
+			foreach($shots as $shot) {
+				$row = substr($shot, 11, 1);
+				$col = substr($shot, 12, 1);
+				$shotConcat = substr($shot, 11, 2);
+
+				if($boardArr[$row][$col] == -1) {
+					//this shot has already been taken, it is illegal
+					return "shot_error";
+				}
+				elseif($boardArr[$row][$col] == 1) {
+					// its a hit
+					foreach($ships as $ship) {
+						return $index = !array_search($shotConcat, $ship); // needs work///////////////////////////////////
+						if(!$index) {
+							return "shot_error";
+						}
+						else {
+							return "hit on ".$index;
+						}
+					}
+				}
+				else {
+					//miss
+					return "miss";
+				}
 			}
 		}
 	}
 }
 
-/*echo "<pre>";
-var_dump(checkTurn("-1", $_SERVER['REMOTE_ADDR'], $_COOKIE['token']));
+echo "<pre>";
+var_dump(fireShots("14~shots_cell_99|shots_cell_02|shots_cell_03|shots_cell_04|shots_cell_00", $_SERVER['REMOTE_ADDR'], $_COOKIE['token']));
 echo "</pre>";
-*/?>
+?>
