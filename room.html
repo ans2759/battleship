@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8"/>
   <script src="http://code.jquery.com/jquery-latest.js"></script>
+  <script src="js/ajaxFunctions.js"></script>
   <title>Chat Room</title>
 
   <script>
@@ -11,14 +12,14 @@
     getUsers();
     
     $('#sendChat').click(function(){
-      var chatText = $('#chatText').val();
+        sendChatAjax($('#chatText').val();, 1);
+     // var chatText = $('#chatText').val();
       if(!chatText){
         //form validation
         console.log("no chat data");
       }
       else {
         $('#chatText').val("");
-        sendChat(chatText);
       }
     });
 
@@ -27,55 +28,6 @@
     });
 
   });
-
-  function callbackLogout(data, status){
-    location.href = "./login.html";
-  }
-
-  function getChat(){
-    ajaxCall("GET",{method:"getChat",a:"chat"},callbackChat);
-  }
-
-  function getUsers(){
-    ajaxCall("GET", {method: "checkUsers", a:"chat"}, callbackUsers);
-  }
-
-  function callbackUsers(data, staus){
-    var h = '';
-    for(i=0;i<data.length;i++){
-      h += data[i].userName + "<br/>";
-    }
-    $('#users').html(h);
-    setTimeout(getUsers, 10000);
-  }
-
-  function callbackChat(data, status){
-    var h='';
-      for(i=0;i<data.length;i++){
-        h+=data[i].userName+' says: '+data[i].text + '<span style="color:gray"> at time ' +data[i].createdAt+'</span><br/>';
-      }
-      $('#text').html(h);
-      setTimeout('getChat()',2000);
-  }
-
-
-  function ajaxCall(GetPost,d,callback){
-    $.ajax({
-        type: GetPost,
-        async: true,
-        cache:false,
-        url: "mid.php",
-        data: d,  
-        dataType: "json",
-        success: callback
-    });
-  }
-
-  function sendChat(text) {
-    var d = '{"text" : "' + text + '"}';
-
-    ajaxCall("POST", {method:"sendChat", a:"chat", data: d}, callbackChat);
-  }
 
 
   </script>
@@ -89,6 +41,7 @@
     #text {
       height:50%;
       max-height: 500px;
+        overflow: auto;
     }
 
     #textInput {

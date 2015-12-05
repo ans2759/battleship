@@ -40,13 +40,17 @@
             font-size: 12pt;
             font-weight: bolder;
         }
-        #finalize {
+        #finalize, #fire{
             display:none;
         }
-        #messages {
+/*        #messages {
             float: right;
-        }
+        }*/
         #status {
+            clear: both;
+            display: block;
+        }
+        form {
             float: right;
         }
 
@@ -65,6 +69,13 @@
         var playerId = <?php echo $playerId; ?>;
         var turn = <?php echo $turn; ?>;
         var svgns="http://www.w3.org/2000/svg";
+
+        $(document).ready(function() {
+            checkTurnAjax(-1);
+            $("#sendChat").click(function() {
+                sendChatAjax($("#chatText").val(), gameNumber);
+            });
+        });
     </script>
 </head>
 <body onload="start()">
@@ -98,11 +109,20 @@
         <text class="bText" x="657px" y="245px" fill="blue">Finalize Ships</text>
     </g>
 
+    <g id="fire">
+        <circle cx="650px" cy="320px" r="25" fill="red" stroke="black" stroke-width="1" ></circle>
+        <text x="633px" y="325px" fill="black">FIRE</text>
+    </g>
+
 
 </svg>
 <button type="button" id="finalize">Finalize Alignment</button>
 </div>
 <div id="status"></div>
-<div id="messages"></div>
+<form>
+    <div id="messages"></div>
+    <input id="chatText" type="text" />
+    <button type="button" id="sendChat" >SEND MESSAGE</button>
+</form>
 </body>
 </html>

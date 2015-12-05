@@ -24,11 +24,8 @@ function start(){
 	//add listner to entire svg background to drop
 	document.getElementsByTagName('svg')[0].addEventListener('mouseup',stopDrag,false);
 	//document.getElementsByTagName('body')[0].addEventListener('mouseup',stopDrag,false);
-	//put my name out
-	//document.getElementById('youPlayer').firstChild.data+=player0;
-	//document.getElementById('opponentPlayer').firstChild.data+=player1;
-	
-	//Build a checkerboard...
+
+
 	//build a group to put the board into...
 	var shotsEle=document.createElementNS(svgns,'g');
 	shotsEle.setAttributeNS(null,'transform','translate('+SHOTSBOARDX+','+SHOTSBOARDY+')');
@@ -157,12 +154,7 @@ function stopDrag(evt){
 	}
 }
 
-function rotate(id, x, y) {
-	var piece = getPiece(id);
-}
-	
-	
-////////////Needs Work!		
+
 function checkHit(x,y,which){
 	//lets change the x and y coords (mouse) to match the transform
 	x=x-SHIPSBOARDX;
@@ -201,13 +193,13 @@ function addShot(cellId){
 	//if it is my turn and I still have shots remaining
 	if(turn === 1 && shotsArr.length < shotsArrLen && shotsArr.indexOf(cellId) === -1) {
 		shotsArr.push(cellId);
+		$("#"+cellId).css("fill", "yellow");
 		if(shotsArr.length === shotsArrLen) {
-			//document.getElementById("#fire").style.diplay = 
-			///////////need to draw fire button and add click function////////////////////
 			$("#fire").show().click(fireAjax).css("cursor", "pointer");
 		}
 	}
-};
+}
+
 
 
 ///////////////////////////////Utilities////////////////////////////////////////

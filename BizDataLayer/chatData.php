@@ -3,8 +3,8 @@
 	//require_once("/home/ans2759/Sites/759/battleship/BizDataLayer/chatData.php");
 require_once("/home/ans2759/dbCon.php");
 	//include exceptions
-	require_once("/home/ans2759/Sites/759/battleship/BizDataLayer/exception.php");
-    require_once("/home/ans2759/Sites/759/battleship/BizDataLayer/exception.php");
+require_once("/home/ans2759/Sites/759/battleship/BizDataLayer/exception.php");
+require_once("/home/ans2759/Sites/759/battleship/BizDataLayer/utilData.php");
 	
 	function getChatData($room){
 		global $mysqli;
@@ -24,8 +24,7 @@ require_once("/home/ans2759/dbCon.php");
 			//echo $c;
     }catch (Exception $e) {
       log_error($e, $sql, null);
-			//return false;
-			echo 'get fail';
+			return false;
     }
 		
 	}
@@ -47,8 +46,7 @@ require_once("/home/ans2759/dbCon.php");
       //echo $c;
     }catch (Exception $e) {
       log_error($e, $sql, null);
-      //return false;
-      echo 'send fail';
+      return false;
     }
   }
 
@@ -72,8 +70,7 @@ function checkRoomData($id){
         //echo $c;
     }catch (Exception $e) {
         log_error($e, $sql, null);
-        //return false;
-        echo 'send fail';
+        return false;
     }
 }
 
@@ -93,8 +90,7 @@ function checkUsersData($roomId){
         //echo $c;
     }catch (Exception $e) {
         log_error($e, $sql, null);
-        //return false;
-        echo 'send fail';
+        return false;
     }
 }
     

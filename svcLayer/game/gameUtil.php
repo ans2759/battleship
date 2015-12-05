@@ -231,7 +231,7 @@ function fireShots($d, $ip, $token) {
 			$ships = buildShipsArr($opp->ships);
 
             //check if shots are legal
-            $hits = 0; //tracks number of hits
+            $hits = array(); //tracks number of hits
             $shipStr = ''; //str representation of ships board
             $ct = 0;
             for($i = 0; $i < count($ships);$i++) {
@@ -253,7 +253,7 @@ function fireShots($d, $ip, $token) {
                                 if ($shotConcat == $ships[$i][$j]) {
                                     //we have hit the ship on this cell
                                     $ships[$i][$j] = -1;
-                                    $hits++;
+                                    array_push($hits, $shotConcat);
                                     break;
                                 }
                             }
@@ -278,14 +278,14 @@ function fireShots($d, $ip, $token) {
            }
 
             //we have updated shots and ships boards, send to db
-            if(setGameData($gameId, $opp->player, $boardStr, $shipStr)) {
+            /*if(setGameData($gameId, $opp->player, $boardStr, $shipStr)) {
                 //game data updated, it is no longer your turn
                 if(setTurnData($you->player, $gameId)) {
                     //success
                     return json_encode(array($oppHealth, $hits));
                 }
-            }
-
+            }*/
+			return $hits;
 		}
 	}
 }

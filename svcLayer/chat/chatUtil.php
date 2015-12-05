@@ -4,8 +4,8 @@ require_once("/home/ans2759/Sites/759/battleship/BizDataLayer/chatData.php");
 require_once("/home/ans2759/Sites/759/battleship/svcLayer/login/token.php");
 session_start();//pretty sure this is needed
 
-function getChat($d,$ip,$token){
-	//are they someone who should be able to do this?  (check token, ip, etc)
+function getChat(){
+   // if(checkToken($))
 	//split $d - would probably hold null if just looking for latest chat, $userId|$message if a new message...  (split like we are doing in game)
 	
 	
@@ -23,7 +23,8 @@ function sendChat($d, $ip, $token){
     }
     else{
       //check user room num before sending chat
-      $room = checkRoomData($_SESSION['user_id']);
+      $room = $obs['room'];
+          //checkRoomData($_SESSION['user_id']);
 
 
 
@@ -38,5 +39,9 @@ function sendChat($d, $ip, $token){
 function checkUsers(){
   echo checkUsersData(checkRoomData($_SESSION['user_id']));
 }
+
+/*echo"<pre>";
+var_dump(getChat());
+echo "</pre>";*/
 
 ?>
