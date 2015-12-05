@@ -164,7 +164,18 @@ function fireAjax () {
 }
 
 function fireCallback (data) {
+	if(data) {
+		var oppHealth = data[0],
+				hits = data[1];
 
+		if(oppHealth === 0) {
+			//you win
+			alert("YOU WIN!!!");
+		}
+
+		$("#status").html("opp ships: " + oppHealth);
+		$("#messages").html(hits + " hits");
+	}
 }
 
 //get the last move

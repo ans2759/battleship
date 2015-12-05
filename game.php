@@ -4,7 +4,7 @@
     $p1='Lauren';
     $gameId=59;
     $turn=0;
-    $playerId = 0;  //I'm Dan and my player id - I have to have this different for Fred (1)
+    $playerId = 0;
     $otherPlayerId = 1;
 ?>
 <!DOCTYPE html>
@@ -44,6 +44,9 @@
             display:none;
         }
         #messages {
+            float: right;
+        }
+        #status {
             float: right;
         }
 
@@ -99,6 +102,7 @@
 </svg>
 <button type="button" id="finalize">Finalize Alignment</button>
 </div>
+<div id="status"></div>
 <div id="messages"></div>
 </body>
 </html>

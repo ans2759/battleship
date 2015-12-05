@@ -54,7 +54,7 @@ function checkTurnData($game) {
 
 function setTurnData($user, $game) {
     global $mysqli;
-    $sql = "UPDATE bs_game SET turn = 1 WHERE gameId = ? AND player = ?";
+    $sql = "UPDATE bs_game SET turn = 0 WHERE gameId = ? AND player = ?";
 
     try {
         if($stmt=$mysqli->prepare($sql)){
@@ -91,6 +91,28 @@ function getGameData($game) {
     }
     catch (Exception $e) {
         log_error($e, $sql, array($gameId, $playerId, $board));
+        return false;
+    }
+}
+
+function setGameData ($game, $player, $board, $ships) {
+    global $mysqli;
+    $sql = "UPDATE bs_game SET board = ?, ships = ?, turn = 1 WHERE gameId = ? AND player = ?";
+
+    try {
+        if($stmt=$mysqli->prepare($sql)){
+            $stmt->bind_param("ssii", $board, $ships, $game, $player);
+            $stmt->execute();
+            return $mysqli->affected_rows;
+            $stmt->close();
+            $mysqli->close();
+        }
+        else if (!$data) {
+            throw new Exception("An error occurred while setting turn");
+        }
+    }
+    catch (Exception $e) {
+        log_error($e, $sql, array($board, $ships, $game, $player));
         return false;
     }
 }

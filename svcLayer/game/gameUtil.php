@@ -209,60 +209,120 @@ function fireShots($d, $ip, $token) {
 		}
 
 		//is it my turn?
-		if($you->turn == 0) {
+		if(is_null($you) || $you->turn == 0) {
 			//it's not my turn
 			return "turn_error";
 		}
 		else {
-			//it is my turn
+			//it is my turn//how many shots do I get?
+            if(count($shots) > checkShipsArray(buildShipsArr($you->ships)) || count($shots) < 1) {
+                //there are too many shots in the array
+                return "shots_error";
+            }
 
-			//check if shots are legal
+			//build board array
 			$boardArr = array();
 			$arr = explode(",",$opp->board);
 			foreach($arr as $row) {
 				array_push($boardArr, str_split($row, 1));
 			}
 
-			/*$ships = array();
-			$arr = explode("|", $opp->ships);
-			foreach($arr as $ship) {
-				array_push($ships, explode(",", $ship));
-			}
-			for($i = 0; $i < count($arr); $i++) {
-				$ship = explode(",", $)
-			}*/
+			//build array of ship positions
+			$ships = buildShipsArr($opp->ships);
 
-			foreach($shots as $shot) {
-				$row = substr($shot, 11, 1);
-				$col = substr($shot, 12, 1);
-				$shotConcat = substr($shot, 11, 2);
+            //check if shots are legal
+            $hits = 0; //tracks number of hits
+            $shipStr = ''; //str representation of ships board
+            $ct = 0;
+            for($i = 0; $i < count($ships);$i++) {
+                if($i != 0) {
+                    $shipStr .= "|";
+                }
+                for($j = 0; $j < count($ships[$i]); $j++) {
+                    $ct++;
+                    if($j != 0) {
+                        $shipStr .= ",";
+                    }
+                    if($ships[$i][$j] != -1) {
+                        foreach ($shots as $shot) {
+                            $row = substr($shot, 11, 1);
+                            $col = substr($shot, 12, 1);
+                            $shotConcat = substr($shot, 11, 2);
+                            if ($boardArr[$row][$col] != 0) {
+                                // its a hit
+                                if ($shotConcat == $ships[$i][$j]) {
+                                    //we have hit the ship on this cell
+                                    $ships[$i][$j] = -1;
+                                    $hits++;
+                                    break;
+                                }
+                            }
+                            //we shot at this spot, mark it as so
+                            $boardArr[$row][$col] = 2;
+                        }
+                    }
+                    $shipStr .= $ships[$i][$j];
+                }
+            }
+            $oppHealth = checkShipsArray($ships);
 
-				if($boardArr[$row][$col] == -1) {
-					//this shot has already been taken, it is illegal
-					return "shot_error";
-				}
-				elseif($boardArr[$row][$col] == 1) {
-					// its a hit
-					foreach($ships as $ship) {
-						return $index = !array_search($shotConcat, $ship); // needs work///////////////////////////////////
-						if(!$index) {
-							return "shot_error";
-						}
-						else {
-							return "hit on ".$index;
-						}
-					}
-				}
-				else {
-					//miss
-					return "miss";
-				}
-			}
+            //change board array back to string
+            $boardStr = '';
+           for($i = 0; $i < count($boardArr); $i++) {
+               if($i != 0) {
+                   $boardStr .= ",";
+               }
+               for($j = 0; $j < count($boardArr[$i]); $j++) {
+                    $boardStr .= $boardArr[$i][$j];
+               }
+           }
+
+            //we have updated shots and ships boards, send to db
+            if(setGameData($gameId, $opp->player, $boardStr, $shipStr)) {
+                //game data updated, it is no longer your turn
+                if(setTurnData($you->player, $gameId)) {
+                    //success
+                    return json_encode(array($oppHealth, $hits));
+                }
+            }
+
 		}
 	}
 }
 
-echo "<pre>";
-var_dump(fireShots("14~shots_cell_99|shots_cell_02|shots_cell_03|shots_cell_04|shots_cell_00", $_SERVER['REMOTE_ADDR'], $_COOKIE['token']));
-echo "</pre>";
+/**
+ * @param $ships
+ * @return int
+ *
+ * Returns the number of ships still alive in a ships array
+ */
+function checkShipsArray ($ships) {
+    $shipsLeft = 0;
+    foreach($ships as $ship) {
+        $alive = false;
+        foreach($ship as $cell) {
+            if($cell != -1) {
+                $alive = true;
+            }
+        }
+        if($alive) {
+            $shipsLeft++;
+        }
+    }
+
+    return $shipsLeft;
+}
+
+function buildShipsArr ($shipStr) {
+    $ships = array();
+    $arr = explode("|", $shipStr);
+    foreach($arr as $ship) {
+        array_push($ships, explode(",", $ship));
+    }
+    return $ships;
+}
+
+/*echo "<pre>";
+var_dump(fireShots("14~shots_cell_01|shots_cell_02|shots_cell_03|shots_cell_04|shots_cell_00", $_SERVER['REMOTE_ADDR'], $_COOKIE['token']));
+echo "</pre>";*/
 ?>

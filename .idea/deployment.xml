@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="PublishConfigData" autoUpload="On explicit save action" serverName="kelvin">
+    <serverData>
+      <paths name="kelvin">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/home/ans2759/Sites/759/battleship" local="$PROJECT_DIR$" web="/battleship" />
+          </mappings>
+        </serverdata>
+      </paths>
+    </serverData>
+    <option name="myAutoUpload" value="ON_EXPLICIT_SAVE" />
+  </component>
+</project>
