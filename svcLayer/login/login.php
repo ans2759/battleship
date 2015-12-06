@@ -18,11 +18,13 @@ function login($data, $ip){
    
     //compare hashed pws
     if($cPass == $dbPass){
-      //generate token
-      $token = createToken($ip, $id);
-      //set cookie to token value
-      setcookie("token", $token, time() + (86400 / 2), "/");
-      return 1;
+        //generate token
+          $token = createToken($ip, $id);
+          //set cookie to token value
+          $time = time() + (86400 / 2);
+          setcookie("token", $token, $time, "/");
+          setLoginData($_SESSION['user_id'], $time);
+          return 1;
     }
     else {
       setcookie("token", " ", time()-1);
@@ -31,6 +33,8 @@ function login($data, $ip){
   }
   else return -1;
 }
+
+//var_dump(login('{ "n" : "haley", "p" : "haley"}', $_SERVER['REMOTE_ADDR']));
 
 function hashPass($pw){
   return crypt($pw, "salt");

@@ -29,9 +29,9 @@ require_once("/home/ans2759/Sites/759/battleship/BizDataLayer/utilData.php");
 		
 	}
 	
-	function sendChatData($r, $u, $t){
-		//update db with new chat
-		global $mysqli;
+function sendChatData($r, $u, $t){
+    //update db with new chat
+    global $mysqli;
 
     $sql = "INSERT INTO bs_chat SET roomNumber = ?, userId = ?, text = ?";
     try {
@@ -48,9 +48,9 @@ require_once("/home/ans2759/Sites/759/battleship/BizDataLayer/utilData.php");
       log_error($e, $sql, null);
       return false;
     }
-  }
+}
 
-function checkRoomData($id){
+/*function checkRoomData($id){
     global $mysqli;
 
     $sql = "SELECT gameId FROM bs_users WHERE userId = ?";
@@ -72,9 +72,9 @@ function checkRoomData($id){
         log_error($e, $sql, null);
         return false;
     }
-}
+}*/
 
-function checkUsersData($roomId){
+/*function checkUsersData($roomId){
     global $mysqli;
 
     $sql = "SELECT userName FROM bs_users WHERE gameId = ?";
@@ -92,7 +92,7 @@ function checkUsersData($roomId){
         log_error($e, $sql, null);
         return false;
     }
-}
+}*/
     
 
 

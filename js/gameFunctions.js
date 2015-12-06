@@ -193,11 +193,17 @@ function addShot(cellId){
 	//if it is my turn and I still have shots remaining
 	if(turn === 1 && shotsArr.length < shotsArrLen && shotsArr.indexOf(cellId) === -1) {
 		shotsArr.push(cellId);
-		$("#"+cellId).css("fill", "yellow");
+		$("#"+cellId).css("fill", "yellow").click(removeShot);
 		if(shotsArr.length === shotsArrLen) {
 			$("#fire").show().click(fireAjax).css("cursor", "pointer");
 		}
 	}
+}
+
+function removeShot (evt) {
+	shotsArr.splice(shotsArr.indexOf(evt.target.id), 1);
+	evt.target.style.fill = "white";
+	evt.target.removeEventListener("click", removeShot);
 }
 
 

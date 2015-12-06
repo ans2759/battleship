@@ -37,7 +37,7 @@ function sendChat($d, $ip, $token){
 }
 
 function checkUsers(){
-  echo checkUsersData(checkRoomData($_SESSION['user_id']));
+  //echo checkRoomData($_SESSION['user_id']);
 }
 
 /*echo"<pre>";

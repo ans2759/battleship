@@ -39,10 +39,7 @@ function fpCallback(data) {
 //callback is callbackcheckTurn
 ////////////////
 function checkTurnAjax(turn){
-	//if(turn!=playerId){
 	ajaxCall("GET",{method:"checkTurn",a:"game",data:turn},callbackcheckTurn);
-	//}
-	//setTimeout(function(){checkTurnAjax('checkTurn',gameId)},3000);
 }
 ////callbackcheckTurn/////
 //callback for checkTurnAjax
@@ -72,13 +69,15 @@ function callbackcheckTurn(data){
 		}, 3000);
 		//get data from last turn
 		getMoveAjax();
-		$(".shot").mouseover(function() {
+		$(".shot").on("mouseover", function() {
 			cell = getCell(this.id);
 			cell.displayCross();
+            $(this).off();
 		});
 	}
 	else {
 		//not turn
+
 		setTimeout(function () {
 			checkTurnAjax(-1);
 		}, 2000);
@@ -128,19 +127,21 @@ function fireCallback (data) {
 
 		//$("#messages").append(hits + " hits");
         var hLen = hits.length,
-            sLen = shotsArr.length;
+				sLen = shotsArr.length;
         if(hLen > 0) {
             for (var i = 0; i < sLen; i++) {
+				var hit = false;
                 for (var j = 0; j < hLen; j++) {
-                    if (hits[j] === shotsArr[i]) {
-                        console.log("hit on : " + hits[j]);
+                    if (hits[j] == shotsArr[i].substr(11)) {
+						$("#gameInfo").append("hit on : " + hits[j] + "<br/>");
                         document.getElementById("shots_cell_" + hits[j]).style.fill = "red";
-                    }
-                    else {
-                        console.log("miss on: " + shotsArr[i]);
-                        document.getElementById("shots_cell_" + hits[j]).style.fill = "blue";
+						hit = true;
                     }
                 }
+				if(!hit) {
+					$("#gameInfo").append("miss on: " + shotsArr[i] + "<br/>");
+					document.getElementById(shotsArr[i]).style.fill = "blue";
+				}
             }
         }
         else {
@@ -191,7 +192,7 @@ function callbackChat(data, status){
 	for(i=0;i<data.length;i++){
 		h+=data[i].userName+' says: '+data[i].text + '<span style="color:gray"> at time ' +data[i].createdAt+'</span><br/>';
 	}
-	if(window.location.href.indexOf("game.php") > -1) {
+	if(!window.location.href.indexOf("game.php") > -1) {
 		//we are in the main lobby
 		$('#text').html(h);
 		setTimeout('getChat()',2000);
@@ -207,8 +208,9 @@ function callbackChat(data, status){
 //-called after I find out it is my turn
 //callback is callbackGetMove
 ////////////////
-function getMoveAjax(whatMethod,val){
-    //ajaxCall("GET",{method:whatMethod,a:"game",data:val},callbackGetMove);
+function getMoveAjax(gameId){
+    gameId = (gameId) ? gameId : 14;
+    ajaxCall("GET",{method:"getMove",a:"game",data:gameId},callbackGetMove);
 }
 ////callbackGetMove/////
 //callback for getMoveAjax

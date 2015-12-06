@@ -21,12 +21,35 @@ function processLogin($user, $pw){
           }
     //echo $c;
   }catch (Exception $e) {
-    log_error($e, $sql, null);
+    log_error($e, $sql, $user);
     //return false;
     echo 'fail';
   }
 
   return $res;
 }
+
+function setLoginData ($user, $time) {
+   /* global $mysqli;
+
+    $sql = "UPDATE bs_users SET login = ? WHERE userId = ?";
+    try {
+        if($stmt=$mysqli->prepare($sql)){
+            $stmt->bind_param("ii", $time, $user);
+            $stmt->execute();
+            return $mysqli->affected_rows;
+            $stmt->close();
+            $mysqli->close();
+        }else {
+            throw new Exception("An error occurred while storing record data");
+        }
+        //echo $c;
+    }catch (Exception $e) {
+        log_error($e, $sql, $time, $user);
+        return false;
+    }*/
+}
+
+//var_dump(setLoginData(101, 1449464986))
 
  ?>

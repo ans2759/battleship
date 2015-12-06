@@ -46,9 +46,10 @@
 /*        #messages {
             float: right;
         }*/
-        #status {
+        #status, #gameInfo {
             clear: both;
             display: block;
+            float: right;
         }
         form {
             float: right;
@@ -124,5 +125,6 @@
     <input id="chatText" type="text" />
     <button type="button" id="sendChat" >SEND MESSAGE</button>
 </form>
+<div id="gameInfo"></div>
 </body>
 </html>
