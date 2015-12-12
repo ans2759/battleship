@@ -217,15 +217,11 @@ function fireShots($d, $ip, $token) {
 			//it is my turn//how many shots do I get?
             if(count($shots) > checkShipsArray(buildShipsArr($you->ships)) || count($shots) < 1) {
                 //there are too many shots in the array
-                return "shots_error";
+                //return "shots_error";
             }
 
 			//build board array
-			$boardArr = array();
-			$arr = explode(",",$opp->board);
-			foreach($arr as $row) {
-				array_push($boardArr, str_split($row, 1));
-			}
+			$boardArr = boardStringToArray($opp->board);
 
 			//build array of ship positions
 			$ships = buildShipsArr($opp->ships);
@@ -256,6 +252,10 @@ function fireShots($d, $ip, $token) {
                                     array_push($hits, $shotConcat);
                                     break;
                                 }
+                                /*else {
+                                    //shot was a miss
+                                    array_push($hits, $shotConcat . "|" . 0);
+                                }*/
                             }
                             //we shot at this spot, mark it as so
                             $boardArr[$row][$col] = 2;
@@ -267,25 +267,17 @@ function fireShots($d, $ip, $token) {
             $oppHealth = checkShipsArray($ships);
 
             //change board array back to string
-            $boardStr = '';
-           for($i = 0; $i < count($boardArr); $i++) {
-               if($i != 0) {
-                   $boardStr .= ",";
-               }
-               for($j = 0; $j < count($boardArr[$i]); $j++) {
-                    $boardStr .= $boardArr[$i][$j];
-               }
-           }
+            $boardStr = boardArrayToString($boardArr);
 
             //we have updated shots and ships boards, send to db
             if(setGameData($gameId, $opp->player, $boardStr, $shipStr)) {
                 //game data updated, it is no longer your turn
-                if(setTurnData($you->player, $gameId)) {
+                if(setTurnData($you->player, $gameId, $data[0])) {
                     //success
                     return json_encode(array($oppHealth, $hits));
                 }
             }
-			return json_encode(array($oppHealth, $hits));
+			//return json_encode(array($oppHealth, $hits));
 		}
 	}
 }
@@ -309,7 +301,6 @@ function checkShipsArray ($ships) {
             $shipsLeft++;
         }
     }
-
     return $shipsLeft;
 }
 
@@ -328,28 +319,66 @@ function buildShipsArr ($shipStr) {
     return $ships;
 }
 
+/**
+ * @param $boardArr
+ * @return string
+ *
+ * takes an array representing the board array and returns a string
+ */
+function boardArrayToString($boardArr){
+    $boardStr = '';
+    for($i = 0; $i < count($boardArr); $i++) {
+        if($i != 0) {
+            $boardStr .= ",";
+        }
+        for($j = 0; $j < count($boardArr[$i]); $j++) {
+            $boardStr .= $boardArr[$i][$j];
+        }
+    }
+    return $boardStr;
+}
+
+/**
+ * @param $str
+ * @return array
+ *
+ * takes board string and returns array representation
+ */
+function boardStringToArray($str) {
+    $boardArr = array();
+    $arr = explode(",",$str);
+    foreach($arr as $row) {
+        array_push($boardArr, str_split($row, 1));
+    }
+    return $boardArr;
+}
+
 function getMove($d, $ip, $token) {
     //do we need to verify identity here?
-
+    //need to start session if we don't check token
+    session_start();
     //retrieve updated game info from DB
     $gameId = $d;
     $game = json_decode(getGameData($gameId));
     foreach($game as $player) {
+        //return $player->ships;
         if($player->player == $_SESSION['user_id']) {
             //these are your boards
-            $you = $player;
+          $you = $player;
         }
         else {
             //these are opponents
             $opp = $player;
         }
     }
-
-
-
+    //return the number of ships you have left and the previous round of shots fired by opponent
+    return json_encode(array(checkShipsArray(buildShipsArr($you->ships)), $opp->shots));
 }
 
 /*echo "<pre>";
-var_dump(fireShots("14~shots_cell_53|shots_cell_79|shots_cell_03|shots_cell_04|shots_cell_00", $_SERVER['REMOTE_ADDR'], $_COOKIE['token']));
+var_dump(getMove(14, $_SERVER['REMOTE_ADDR'], $_COOKIE['token']));
+echo "</pre>";*/
+/*echo "<pre>";
+var_dump(fireShots("14~shots_cell_00|shots_cell_02|shots_cell_03|shots_cell_04|shots_cell_05", $_SERVER['REMOTE_ADDR'], $_COOKIE['token']));
 echo "</pre>";*/
 ?>

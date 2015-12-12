@@ -19,7 +19,8 @@ function Piece(num){
 	this.number=num;
 	this.isDead=false;
 	this.id='piece_'+this.number;
-	this.x = ((num * 50) + 450);
+	//this.x = ((num * 50) + 450);
+	this.x = ((num * 25) + 150);
 	this.y = 350;
 	this.e1 = '';
 	this.e2 = '';
@@ -112,7 +113,8 @@ Piece.prototype = {
 function Destroyer (parent) {
 	this.parent = parent;
 	this.parent.health = 2;
-
+	this.parent.current_cell = shipsBoardArr[0][0];
+    shipsBoardArr[0][0].makeOccupied(this.parent.id);
 	//create it
 	this.myPiece = document.createElementNS(svgns, "g");
 	this.myPiece.setAttributeNS(null, 'transform', 'translate('+this.parent.x+','+this.parent.y+')');
@@ -131,7 +133,8 @@ function Destroyer (parent) {
 function Sub (parent) {
 	this.parent = parent;
 	parent.health = 3;
-
+	this.parent.current_cell = shipsBoardArr[0][1];
+    shipsBoardArr[0][1].makeOccupied(this.parent.id);
 	this.myPiece = document.createElementNS(svgns, "g");
 	this.myPiece.setAttributeNS(null, 'transform', 'translate('+this.parent.x+','+this.parent.y+')');
 	this.myPiece.setAttributeNS(null, "id", "piece_1");
@@ -147,7 +150,8 @@ function Sub (parent) {
 function Cruiser (parent) {
 	this.parent = parent;
 	parent.health = 3;
-
+	this.parent.current_cell = shipsBoardArr[0][2];
+    shipsBoardArr[0][2].makeOccupied(this.parent.id);
 	this.myPiece = document.createElementNS(svgns, "g");
 	this.myPiece.setAttributeNS(null, 'transform', 'translate('+this.parent.x+','+this.parent.y+')');
 	this.myPiece.setAttributeNS(null, "id", "piece_2");
@@ -163,7 +167,8 @@ function Cruiser (parent) {
 function Battleship (parent) {
 	this.parent = parent;
 	parent.health = 4;
-
+	this.parent.current_cell = shipsBoardArr[0][3];
+    shipsBoardArr[0][3].makeOccupied(this.parent.id);
 	this.myPiece = document.createElementNS(svgns, "g");
 	this.myPiece.setAttributeNS(null, 'transform', 'translate('+this.parent.x+','+this.parent.y+')');
 	this.myPiece.setAttributeNS(null, "id", "piece_3");
@@ -179,7 +184,8 @@ function Battleship (parent) {
 function Carrier (parent) {
 	this.parent = parent;
 	parent.health = 5;
-
+	this.parent.current_cell = shipsBoardArr[0][4];
+    shipsBoardArr[0][4].makeOccupied(this.parent.id);
 	this.myPiece = document.createElementNS(svgns, "g");
 	this.myPiece.setAttributeNS(null, 'transform', 'translate('+this.parent.x+','+this.parent.y+')');
 	this.myPiece.setAttributeNS(null, "id", "piece_4");

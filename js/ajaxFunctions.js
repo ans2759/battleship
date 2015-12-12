@@ -32,14 +32,18 @@ function fpCallback(data) {
 	if(data !== 1) {
 		//handle errors
 	}
+	else{
+        turn = 0; //it is no longer my turn
+        checkTurnAjax(turn);
+    }
 }
 
 ////checkTurnAjax/////
 //check to see whose turn it is
 //callback is callbackcheckTurn
 ////////////////
-function checkTurnAjax(turn){
-	ajaxCall("GET",{method:"checkTurn",a:"game",data:turn},callbackcheckTurn);
+function checkTurnAjax(t){
+	ajaxCall("GET",{method:"checkTurn",a:"game",data:t},callbackcheckTurn);
 }
 ////callbackcheckTurn/////
 //callback for checkTurnAjax
@@ -62,22 +66,25 @@ function callbackcheckTurn(data){
 	//check to see if turn changed on server
 	if(data[1] === 1) {
 		//it is my turn
+
+        if(turn != 1) {
+            //get data from last turn
+            getMoveAjax();
+        }
 		turn = 1;
         $("#messages").append("Your turn <br/>");
 		setTimeout(function () {
 			checkTurnAjax();
 		}, 3000);
-		//get data from last turn
-		getMoveAjax();
-		$(".shot").on("mouseover", function() {
+		/*$(".shot").on("mouseover", function() {
 			cell = getCell(this.id);
-			cell.displayCross();
+			//cell.displayCross();
             $(this).off();
-		});
+		});*/
 	}
 	else {
 		//not turn
-
+        turn = 0;
 		setTimeout(function () {
 			checkTurnAjax(-1);
 		}, 2000);
@@ -147,7 +154,9 @@ function fireCallback (data) {
         else {
             //no hits
             for (var i = 0; i < sLen; i++) {
-                document.getElementById("shots_cell_" + hits[j]).style.fill = "blue";
+                if(hits[i]) {
+                    document.getElementById("shots_cell_" + hits[j]).style.fill = "blue";
+                }
             }
         }
 	}
@@ -215,32 +224,22 @@ function getMoveAjax(gameId){
 ////callbackGetMove/////
 //callback for getMoveAjax
 ////////////////
-function callbackGetMove(jsonObj){
-    //tests to see what I'm getting back!
-    //alert(jsonObj[0]['player'+Math.abs(playerId-1)+'_pieceID']);
-    //alert(jsonObj[0]['player'+Math.abs(playerId-1)+'_boardI']);
-    //alert(jsonObj[0]['player'+Math.abs(playerId-1)+'_boardJ']);
+function callbackGetMove(data){
+    console.log(data);
+    if(!data) {
+        //error
+    }
+    else {
+        shotsArrLen = parseInt(data[0]);
+        if(data[1]) {
+            var oppShots = data[1].split("|");
+            for (var i = 0; i < oppShots.length; i++) {
+                var cell = getCell(oppShots[i]);
+                cell.displayShot();
+            }
+        }
 
-    //change the text output on the side for whose turn it is
-    //var hold='playerId '+playerId+ ' turn '+turn;
-    //document.getElementById('output2').firstChild.data=hold;
-
-    //change the color of the names for whose turn it is:
-    document.getElementById('youPlayer').setAttributeNS(null,'fill',"orange");
-    document.getElementById('opponentPlayer').setAttributeNS(null,'fill',"black");
-
-    //make the other guys piece move to the location
-    //first, clear the other guy's cell
-    var toMove=getPiece(jsonObj[0]['player'+Math.abs(playerId-1)+'_pieceID']);
-    toMove.current_cell.notOccupied();
-    //now, actually move it!
-    var x=boardArr[jsonObj[0]['player'+Math.abs(playerId-1)+'_boardI']][jsonObj[0]['player'+Math.abs(playerId-1)+'_boardJ']].getCenterX();
-    var y=boardArr[jsonObj[0]['player'+Math.abs(playerId-1)+'_boardI']][jsonObj[0]['player'+Math.abs(playerId-1)+'_boardJ']].getCenterY();
-    setTransform(jsonObj[0]['player'+Math.abs(playerId-1)+'_pieceID'],x,y);
-
-    //now, for me, make the new cell occupied!
-    //Piece.prototype.changeCell = function(newCell,row,col){
-    getPiece(jsonObj[0]['player'+Math.abs(playerId-1)+'_pieceID']).changeCell('cell_'+jsonObj[0]['player'+Math.abs(playerId-1)+'_boardI']+jsonObj[0]['player'+Math.abs(playerId-1)+'_boardJ'],jsonObj[0]['player'+Math.abs(playerId-1)+'_boardI'],jsonObj[0]['player'+Math.abs(playerId-1)+'_boardJ']);
+    }
 }
 
 

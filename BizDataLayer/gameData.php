@@ -8,7 +8,8 @@ require_once("/home/ans2759/Sites/759/battleship/BizDataLayer/chatData.php");
 
 function setBoardData($gameId, $playerId, $board, $ships)  {
     global $mysqli;
-    $sql = "INSERT INTO bs_game SET gameId = ?, player = ?, board = ?, ships = ?";
+    // will need to be changed to update when game init is done
+    $sql = "INSERT INTO bs_game SET gameId = ?, player = ?, board = ?, ships = ?, finalized = 1";
 
     try {
         if($stmt=$mysqli->prepare($sql)){
@@ -52,13 +53,13 @@ function checkTurnData($game) {
 }
 
 
-function setTurnData($user, $game) {
+function setTurnData($user, $game, $shots) {
     global $mysqli;
-    $sql = "UPDATE bs_game SET turn = 0 WHERE gameId = ? AND player = ?";
+    $sql = "UPDATE bs_game SET turn = 0, shots = ? WHERE gameId = ? AND player = ?";
 
     try {
         if($stmt=$mysqli->prepare($sql)){
-            $stmt->bind_param("ii", $game, $user);
+            $stmt->bind_param("sii", $shots, $game, $user);
             $stmt->execute(); 
             return $mysqli->affected_rows;
             $stmt->close();
@@ -85,12 +86,12 @@ function getGameData($game) {
             $stmt->close();
             $mysqli->close();
         }
-        else if (!$data) {
+        else {
             throw new Exception("An error occurred getting game data");
         }
     }
     catch (Exception $e) {
-        log_error($e, $sql, array($gameId, $playerId, $board));
+        log_error($e, $sql, array($game));
         return false;
     }
 }
@@ -107,7 +108,7 @@ function setGameData ($game, $player, $board, $ships) {
             $stmt->close();
             $mysqli->close();
         }
-        else if (!$data) {
+        else {
             throw new Exception("An error occurred while setting turn");
         }
     }

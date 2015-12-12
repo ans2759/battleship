@@ -31,6 +31,7 @@ function Cell(parent,id,size,row,col){
 	this.parent.appendChild(this.object);
 	//store my bounding box
 	this.myBBox = this.getMyBBox();
+
 }
 
 
@@ -223,6 +224,17 @@ Cell.prototype={
 			cell.removeEventListener("mouseout", hide);
 		}
 	},
+    displayShot : function() {
+        this.shotAt = true;
+        var cir = document.createElementNS(svgns, "circle");
+
+        cir.setAttributeNS(null, "cx", SHIPSBOARDX + this.x + this.size/2);
+        cir.setAttributeNS(null, "cy", SHIPSBOARDY + this.y + this.size/2);
+        cir.setAttributeNS(null, "r", this.size/2 - 4);
+        cir.setAttributeNS(null, "fill", "orange");
+
+        document.getElementsByTagName(svg)[0].appendChild(cir);
+    },
 	PI:3.1415697
 }
 

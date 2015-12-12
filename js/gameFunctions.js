@@ -115,7 +115,7 @@ function stopDrag(evt){
 		}
 		else {
 			var hit = false;
-			nytwarning();
+			//nytwarning();
 		}
 
 		if(hit == true) {
@@ -220,11 +220,19 @@ function getPiece(id) {
 	return pieceArr[index];
 }
 
-function getCell(id) {
+/*function getCell(id) {
 	var i = parseInt(id.substr(11, 1)),
 		j = parseInt(id.substr(12,1));
 	return shotsBoardArr[i][j];
+}*/
+function getCell(id) {
+	var i = parseInt(id.substr(11, 1)),
+			j = parseInt(id.substr(12,1));
+	return shipsBoardArr[i][j];
 }
+
+
+//getShipsCell()
 			
 ////get Transform/////
 //	look at the id of the piece sent in and work on it's transform
