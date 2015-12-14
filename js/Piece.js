@@ -51,13 +51,7 @@ function Piece(num){
 
 	this.piece = this.object.myPiece;
 	
-	this.piece.addEventListener('mousedown',function(evt){
-		if(evt.altKey){
-			getPiece(this.id).rotate();
-		}
-		//console.log("evt: " + evt.clientX + ", " + evt.clientY);
-		startDrag(this.id);
-	},false);
+	this.piece.addEventListener('mousedown', this.grab, false);
 	
 	document.getElementsByTagName('svg')[0].appendChild(this.piece);
 }
@@ -107,6 +101,13 @@ Piece.prototype = {
 	},
 	addClass : function(ele) {
 		ele.setAttributeNS(null, "class", "ship");
+	},
+	grab : function(evt){
+		if(evt.altKey){
+			getPiece(this.id).rotate();
+		}
+		//console.log("evt: " + evt.clientX + ", " + evt.clientY);
+		startDrag(this.id);
 	}
 }
 
@@ -115,6 +116,7 @@ function Destroyer (parent) {
 	this.parent.health = 2;
 	this.parent.current_cell = shipsBoardArr[0][0];
     shipsBoardArr[0][0].makeOccupied(this.parent.id);
+	shipsBoardArr[1][0].makeOccupied(this.parent.id);
 	//create it
 	this.myPiece = document.createElementNS(svgns, "g");
 	this.myPiece.setAttributeNS(null, 'transform', 'translate('+this.parent.x+','+this.parent.y+')');
@@ -135,6 +137,8 @@ function Sub (parent) {
 	parent.health = 3;
 	this.parent.current_cell = shipsBoardArr[0][1];
     shipsBoardArr[0][1].makeOccupied(this.parent.id);
+	shipsBoardArr[1][1].makeOccupied(this.parent.id);
+	shipsBoardArr[2][1].makeOccupied(this.parent.id);
 	this.myPiece = document.createElementNS(svgns, "g");
 	this.myPiece.setAttributeNS(null, 'transform', 'translate('+this.parent.x+','+this.parent.y+')');
 	this.myPiece.setAttributeNS(null, "id", "piece_1");
@@ -152,6 +156,8 @@ function Cruiser (parent) {
 	parent.health = 3;
 	this.parent.current_cell = shipsBoardArr[0][2];
     shipsBoardArr[0][2].makeOccupied(this.parent.id);
+	shipsBoardArr[1][2].makeOccupied(this.parent.id);
+	shipsBoardArr[2][2].makeOccupied(this.parent.id);
 	this.myPiece = document.createElementNS(svgns, "g");
 	this.myPiece.setAttributeNS(null, 'transform', 'translate('+this.parent.x+','+this.parent.y+')');
 	this.myPiece.setAttributeNS(null, "id", "piece_2");
@@ -169,6 +175,9 @@ function Battleship (parent) {
 	parent.health = 4;
 	this.parent.current_cell = shipsBoardArr[0][3];
     shipsBoardArr[0][3].makeOccupied(this.parent.id);
+	shipsBoardArr[1][3].makeOccupied(this.parent.id);
+	shipsBoardArr[2][3].makeOccupied(this.parent.id);
+	shipsBoardArr[3][3].makeOccupied(this.parent.id);
 	this.myPiece = document.createElementNS(svgns, "g");
 	this.myPiece.setAttributeNS(null, 'transform', 'translate('+this.parent.x+','+this.parent.y+')');
 	this.myPiece.setAttributeNS(null, "id", "piece_3");
@@ -186,6 +195,10 @@ function Carrier (parent) {
 	parent.health = 5;
 	this.parent.current_cell = shipsBoardArr[0][4];
     shipsBoardArr[0][4].makeOccupied(this.parent.id);
+	shipsBoardArr[1][4].makeOccupied(this.parent.id);
+	shipsBoardArr[2][4].makeOccupied(this.parent.id);
+	shipsBoardArr[3][4].makeOccupied(this.parent.id);
+	shipsBoardArr[4][4].makeOccupied(this.parent.id);
 	this.myPiece = document.createElementNS(svgns, "g");
 	this.myPiece.setAttributeNS(null, 'transform', 'translate('+this.parent.x+','+this.parent.y+')');
 	this.myPiece.setAttributeNS(null, "id", "piece_4");

@@ -2,10 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6dbff5bc-ccb2-410e-89cf-1aa75097c897" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/BizDataLayer/gameData.php" afterPath="$PROJECT_DIR$/BizDataLayer/gameData.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/game.php" afterPath="$PROJECT_DIR$/game.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/Cell.js" afterPath="$PROJECT_DIR$/js/Cell.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/Piece.js" afterPath="$PROJECT_DIR$/js/Piece.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/ajaxFunctions.js" afterPath="$PROJECT_DIR$/js/ajaxFunctions.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/gameFunctions.js" afterPath="$PROJECT_DIR$/js/gameFunctions.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/svcLayer/game/gameUtil.php" afterPath="$PROJECT_DIR$/svcLayer/game/gameUtil.php" />
     </list>
     <ignored path="battleship.iws" />
@@ -31,17 +33,17 @@
       <file leaf-file-name="game.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/game.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-38.576923">
-              <caret line="59" column="8" selection-start-line="59" selection-start-column="6" selection-end-line="59" selection-end-column="8" />
+            <state vertical-scroll-proportion="-6.4615383">
+              <caret line="42" column="9" selection-start-line="42" selection-start-column="9" selection-end-line="42" selection-end-column="9" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="gameUtil.php" pinned="false" current-in-tab="false">
+      <file leaf-file-name="gameUtil.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/svcLayer/game/gameUtil.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="79.84615">
+            <state vertical-scroll-proportion="-3.5119047">
               <caret line="37" column="9" selection-start-line="37" selection-start-column="9" selection-end-line="37" selection-end-column="9" />
               <folding />
             </state>
@@ -51,30 +53,30 @@
       <file leaf-file-name="gameData.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/BizDataLayer/gameData.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-10.461538">
-              <caret line="16" column="30" selection-start-line="16" selection-start-column="30" selection-end-line="16" selection-end-column="30" />
+            <state vertical-scroll-proportion="-17.0">
+              <caret line="26" column="68" selection-start-line="26" selection-start-column="68" selection-end-line="26" selection-end-column="68" />
               <folding>
-                <marker date="1450110208788" expanded="true" signature="463:550" placeholder="UPDATE bs_ga... " />
-                <marker date="1450110208788" expanded="true" signature="469:503" placeholder="INSERT INTO bs_game..." />
-                <marker date="1450110208788" expanded="true" signature="469:518" placeholder="INSERT INTO bs_game..." />
-                <marker date="1450110208788" expanded="true" signature="1151:1200" placeholder="SELECT playe..bs_game..." />
-                <marker date="1450110208788" expanded="true" signature="1757:1827" placeholder="UPDATE bs_ga..." />
-                <marker date="1450110208788" expanded="true" signature="2385:2455" placeholder="SELECT playe..bs_game..." />
-                <marker date="1450110208788" expanded="true" signature="2982:3063" placeholder="UPDATE bs_ga..." />
+                <marker date="1450128254994" expanded="true" signature="463:550" placeholder="UPDATE bs_ga... " />
+                <marker date="1450128254994" expanded="true" signature="469:503" placeholder="INSERT INTO bs_game..." />
+                <marker date="1450128254994" expanded="true" signature="469:518" placeholder="INSERT INTO bs_game..." />
+                <marker date="1450128254994" expanded="true" signature="1159:1208" placeholder="SELECT playe..bs_game..." />
+                <marker date="1450128254994" expanded="true" signature="1765:1835" placeholder="UPDATE bs_ga..." />
+                <marker date="1450128254994" expanded="true" signature="2393:2463" placeholder="SELECT playe..bs_game..." />
+                <marker date="1450128254994" expanded="true" signature="2990:3071" placeholder="UPDATE bs_ga..." />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ajaxFunctions.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="ajaxFunctions.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/js/ajaxFunctions.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="1.9281437">
-              <caret line="164" column="22" selection-start-line="164" selection-start-column="22" selection-end-line="164" selection-end-column="22" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="30" column="19" selection-start-line="30" selection-start-column="9" selection-end-line="30" selection-end-column="19" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
-                <marker date="1450110443745" expanded="true" signature="1455:1465" placeholder="..." />
-                <marker date="1450110443745" expanded="true" signature="5129:5139" placeholder="..." />
+                <marker date="1450127808141" expanded="true" signature="1805:1815" placeholder="..." />
+                <marker date="1450127808141" expanded="true" signature="5759:5769" placeholder="..." />
               </folding>
             </state>
           </provider>
@@ -83,8 +85,8 @@
       <file leaf-file-name="gameFunctions.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/js/gameFunctions.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-51.482758">
-              <caret line="193" column="11" selection-start-line="193" selection-start-column="7" selection-end-line="193" selection-end-column="11" />
+            <state vertical-scroll-proportion="-11.034483">
+              <caret line="101" column="18" selection-start-line="101" selection-start-column="9" selection-end-line="101" selection-end-column="18" />
               <folding />
             </state>
           </provider>
@@ -93,8 +95,8 @@
       <file leaf-file-name="Piece.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/js/Piece.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="27" column="36" selection-start-line="27" selection-start-column="31" selection-end-line="27" selection-end-column="36" />
+            <state vertical-scroll-proportion="-8.814815">
+              <caret line="53" column="61" selection-start-line="53" selection-start-column="61" selection-end-line="53" selection-end-column="61" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
               </folding>
@@ -106,7 +108,7 @@
         <entry file="file://$PROJECT_DIR$/js/Cell.js">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="235" column="43" selection-start-line="235" selection-start-column="43" selection-end-line="235" selection-end-column="43" />
+              <caret line="238" column="52" selection-start-line="238" selection-start-column="52" selection-end-line="238" selection-end-column="52" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
               </folding>
@@ -123,18 +125,18 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/BizDataLayer/dataerror.log" />
-        <option value="$PROJECT_DIR$/game.php" />
         <option value="$PROJECT_DIR$/svcLayer/chat/chatUtil.php" />
         <option value="$PROJECT_DIR$/BizDataLayer/chatData.php" />
         <option value="$PROJECT_DIR$/BizDataLayer/loginData.php" />
         <option value="$PROJECT_DIR$/room.html" />
-        <option value="$PROJECT_DIR$/js/Piece.js" />
         <option value="$PROJECT_DIR$/svcLayer/login/login.php" />
-        <option value="$PROJECT_DIR$/js/gameFunctions.js" />
         <option value="$PROJECT_DIR$/js/Cell.js" />
+        <option value="$PROJECT_DIR$/game.php" />
+        <option value="$PROJECT_DIR$/js/gameFunctions.js" />
+        <option value="$PROJECT_DIR$/js/Piece.js" />
+        <option value="$PROJECT_DIR$/js/ajaxFunctions.js" />
         <option value="$PROJECT_DIR$/svcLayer/game/gameUtil.php" />
         <option value="$PROJECT_DIR$/BizDataLayer/gameData.php" />
-        <option value="$PROJECT_DIR$/js/ajaxFunctions.js" />
       </list>
     </option>
   </component>
@@ -179,6 +181,7 @@
     </navigator>
     <panes>
       <pane id="Scratches" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -281,7 +284,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -290,7 +292,7 @@
     <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors" />
     <property name="js-jscs-nodeInterpreter" value="C:\Program Files\nodejs\node.exe" />
     <property name="settings.editor.splitter.proportion" value="0.2" />
-    <property name="SearchEverywhereHistoryKey" value="fireaja&#9;null&#9;null&#10;final&#9;null&#9;null&#10;checkturn&#9;null&#9;null&#10;getmov&#9;null&#9;null&#10;process&#9;null&#9;null&#10;getMove&#9;null&#9;null&#10;checkT&#9;null&#9;null&#10;checktu&#9;null&#9;null&#10;firaj&#9;null&#9;null&#10;sendch&#9;null&#9;null&#10;getGa&#9;null&#9;null&#10;createT&#9;null&#9;null&#10;fireA&#9;null&#9;null&#10;checkTurnA&#9;null&#9;null" />
+    <property name="SearchEverywhereHistoryKey" value="final&#9;null&#9;null&#10;fina&#9;null&#9;null&#10;fireaja&#9;null&#9;null&#10;checkturn&#9;null&#9;null&#10;getmov&#9;null&#9;null&#10;process&#9;null&#9;null&#10;getMove&#9;null&#9;null&#10;checkT&#9;null&#9;null&#10;checktu&#9;null&#9;null&#10;firaj&#9;null&#9;null&#10;sendch&#9;null&#9;null&#10;getGa&#9;null&#9;null&#10;createT&#9;null&#9;null&#10;fireA&#9;null&#9;null&#10;checkTurnA&#9;null&#9;null" />
     <property name="HbShouldOpenHtmlAsHb" value="" />
   </component>
   <component name="RunManager">
@@ -338,7 +340,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.16251831" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -407,7 +409,7 @@
     <entry file="file://$PROJECT_DIR$/svcLayer/game/gameUtil.php">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="274" column="61" selection-start-line="274" selection-start-column="61" selection-end-line="274" selection-end-column="61" />
+          <caret line="37" column="9" selection-start-line="37" selection-start-column="9" selection-end-line="37" selection-end-column="9" />
           <folding />
         </state>
       </provider>
@@ -415,15 +417,15 @@
     <entry file="file://$PROJECT_DIR$/BizDataLayer/gameData.php">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="61" column="44" selection-start-line="61" selection-start-column="44" selection-end-line="61" selection-end-column="44" />
+          <caret line="16" column="30" selection-start-line="16" selection-start-column="30" selection-end-line="16" selection-end-column="30" />
           <folding>
-            <marker date="1450110208788" expanded="true" signature="463:550" placeholder="UPDATE bs_ga... " />
-            <marker date="1450110208788" expanded="true" signature="469:503" placeholder="INSERT INTO bs_game..." />
-            <marker date="1450110208788" expanded="true" signature="469:518" placeholder="INSERT INTO bs_game..." />
-            <marker date="1450110208788" expanded="true" signature="1151:1200" placeholder="SELECT playe..bs_game..." />
-            <marker date="1450110208788" expanded="true" signature="1757:1827" placeholder="UPDATE bs_ga..." />
-            <marker date="1450110208788" expanded="true" signature="2385:2455" placeholder="SELECT playe..bs_game..." />
-            <marker date="1450110208788" expanded="true" signature="2982:3063" placeholder="UPDATE bs_ga..." />
+            <marker date="1450128254994" expanded="true" signature="463:550" placeholder="UPDATE bs_ga... " />
+            <marker date="1450128254994" expanded="true" signature="469:503" placeholder="INSERT INTO bs_game..." />
+            <marker date="1450128254994" expanded="true" signature="469:518" placeholder="INSERT INTO bs_game..." />
+            <marker date="1450128254994" expanded="true" signature="1159:1208" placeholder="SELECT playe..bs_game..." />
+            <marker date="1450128254994" expanded="true" signature="1765:1835" placeholder="UPDATE bs_ga..." />
+            <marker date="1450128254994" expanded="true" signature="2393:2463" placeholder="SELECT playe..bs_game..." />
+            <marker date="1450128254994" expanded="true" signature="2990:3071" placeholder="UPDATE bs_ga..." />
           </folding>
         </state>
       </provider>
@@ -434,8 +436,80 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
-            <marker date="1450110443745" expanded="true" signature="1455:1465" placeholder="..." />
-            <marker date="1450110443745" expanded="true" signature="5129:5139" placeholder="..." />
+            <marker date="1450127808141" expanded="true" signature="1805:1815" placeholder="..." />
+            <marker date="1450127808141" expanded="true" signature="5759:5769" placeholder="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/gameFunctions.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="193" column="11" selection-start-line="193" selection-start-column="7" selection-end-line="193" selection-end-column="11" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/Piece.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="27" column="36" selection-start-line="27" selection-start-column="31" selection-end-line="27" selection-end-column="36" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/Cell.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="235" column="43" selection-start-line="235" selection-start-column="43" selection-end-line="235" selection-end-column="43" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/game.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="59" column="8" selection-start-line="59" selection-start-column="6" selection-end-line="59" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/svcLayer/game/gameUtil.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="274" column="61" selection-start-line="274" selection-start-column="61" selection-end-line="274" selection-end-column="61" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/BizDataLayer/gameData.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="61" column="44" selection-start-line="61" selection-start-column="44" selection-end-line="61" selection-end-column="44" />
+          <folding>
+            <marker date="1450128254994" expanded="true" signature="463:550" placeholder="UPDATE bs_ga... " />
+            <marker date="1450128254994" expanded="true" signature="469:503" placeholder="INSERT INTO bs_game..." />
+            <marker date="1450128254994" expanded="true" signature="469:518" placeholder="INSERT INTO bs_game..." />
+            <marker date="1450128254994" expanded="true" signature="1159:1208" placeholder="SELECT playe..bs_game..." />
+            <marker date="1450128254994" expanded="true" signature="1765:1835" placeholder="UPDATE bs_ga..." />
+            <marker date="1450128254994" expanded="true" signature="2393:2463" placeholder="SELECT playe..bs_game..." />
+            <marker date="1450128254994" expanded="true" signature="2990:3071" placeholder="UPDATE bs_ga..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/ajaxFunctions.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+            <marker date="1450127808141" expanded="true" signature="1805:1815" placeholder="..." />
+            <marker date="1450127808141" expanded="true" signature="5759:5769" placeholder="..." />
           </folding>
         </state>
       </provider>
@@ -489,13 +563,13 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="61" column="44" selection-start-line="61" selection-start-column="44" selection-end-line="61" selection-end-column="44" />
           <folding>
-            <marker date="1450110208788" expanded="true" signature="463:550" placeholder="UPDATE bs_ga... " />
-            <marker date="1450110208788" expanded="true" signature="469:503" placeholder="INSERT INTO bs_game..." />
-            <marker date="1450110208788" expanded="true" signature="469:518" placeholder="INSERT INTO bs_game..." />
-            <marker date="1450110208788" expanded="true" signature="1151:1200" placeholder="SELECT playe..bs_game..." />
-            <marker date="1450110208788" expanded="true" signature="1757:1827" placeholder="UPDATE bs_ga..." />
-            <marker date="1450110208788" expanded="true" signature="2385:2455" placeholder="SELECT playe..bs_game..." />
-            <marker date="1450110208788" expanded="true" signature="2982:3063" placeholder="UPDATE bs_ga..." />
+            <marker date="1450128254994" expanded="true" signature="463:550" placeholder="UPDATE bs_ga... " />
+            <marker date="1450128254994" expanded="true" signature="469:503" placeholder="INSERT INTO bs_game..." />
+            <marker date="1450128254994" expanded="true" signature="469:518" placeholder="INSERT INTO bs_game..." />
+            <marker date="1450128254994" expanded="true" signature="1159:1208" placeholder="SELECT playe..bs_game..." />
+            <marker date="1450128254994" expanded="true" signature="1765:1835" placeholder="UPDATE bs_ga..." />
+            <marker date="1450128254994" expanded="true" signature="2393:2463" placeholder="SELECT playe..bs_game..." />
+            <marker date="1450128254994" expanded="true" signature="2990:3071" placeholder="UPDATE bs_ga..." />
           </folding>
         </state>
       </provider>
@@ -506,8 +580,8 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
-            <marker date="1450110443745" expanded="true" signature="1455:1465" placeholder="..." />
-            <marker date="1450110443745" expanded="true" signature="5129:5139" placeholder="..." />
+            <marker date="1450127808141" expanded="true" signature="1805:1815" placeholder="..." />
+            <marker date="1450127808141" expanded="true" signature="5759:5769" placeholder="..." />
           </folding>
         </state>
       </provider>
@@ -554,8 +628,8 @@
           <caret line="208" column="29" selection-start-line="208" selection-start-column="29" selection-end-line="208" selection-end-column="29" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
-            <marker date="1450110443745" expanded="true" signature="1455:1465" placeholder="..." />
-            <marker date="1450110443745" expanded="true" signature="5129:5139" placeholder="..." />
+            <marker date="1450127808141" expanded="true" signature="1805:1815" placeholder="..." />
+            <marker date="1450127808141" expanded="true" signature="5759:5769" placeholder="..." />
           </folding>
         </state>
       </provider>
@@ -573,13 +647,13 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="76" column="9" selection-start-line="76" selection-start-column="9" selection-end-line="76" selection-end-column="9" />
           <folding>
-            <marker date="1450110208788" expanded="true" signature="463:550" placeholder="UPDATE bs_ga... " />
-            <marker date="1450110208788" expanded="true" signature="469:503" placeholder="INSERT INTO bs_game..." />
-            <marker date="1450110208788" expanded="true" signature="469:518" placeholder="INSERT INTO bs_game..." />
-            <marker date="1450110208788" expanded="true" signature="1151:1200" placeholder="SELECT playe..bs_game..." />
-            <marker date="1450110208788" expanded="true" signature="1757:1827" placeholder="UPDATE bs_ga..." />
-            <marker date="1450110208788" expanded="true" signature="2385:2455" placeholder="SELECT playe..bs_game..." />
-            <marker date="1450110208788" expanded="true" signature="2982:3063" placeholder="UPDATE bs_ga..." />
+            <marker date="1450128254994" expanded="true" signature="463:550" placeholder="UPDATE bs_ga... " />
+            <marker date="1450128254994" expanded="true" signature="469:503" placeholder="INSERT INTO bs_game..." />
+            <marker date="1450128254994" expanded="true" signature="469:518" placeholder="INSERT INTO bs_game..." />
+            <marker date="1450128254994" expanded="true" signature="1159:1208" placeholder="SELECT playe..bs_game..." />
+            <marker date="1450128254994" expanded="true" signature="1765:1835" placeholder="UPDATE bs_ga..." />
+            <marker date="1450128254994" expanded="true" signature="2393:2463" placeholder="SELECT playe..bs_game..." />
+            <marker date="1450128254994" expanded="true" signature="2990:3071" placeholder="UPDATE bs_ga..." />
           </folding>
         </state>
       </provider>
@@ -613,8 +687,8 @@
           <caret line="146" column="21" selection-start-line="146" selection-start-column="21" selection-end-line="146" selection-end-column="21" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
-            <marker date="1450110443745" expanded="true" signature="1455:1465" placeholder="..." />
-            <marker date="1450110443745" expanded="true" signature="5129:5139" placeholder="..." />
+            <marker date="1450127808141" expanded="true" signature="1805:1815" placeholder="..." />
+            <marker date="1450127808141" expanded="true" signature="5759:5769" placeholder="..." />
           </folding>
         </state>
       </provider>
@@ -697,55 +771,50 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/js/Piece.js">
+    <entry file="file://$PROJECT_DIR$/BizDataLayer/checkTurn.php">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="27" column="36" selection-start-line="27" selection-start-column="31" selection-end-line="27" selection-end-column="36" />
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-          </folding>
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/game.php">
+    <entry file="file://$PROJECT_DIR$/js/Piece.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-38.576923">
-          <caret line="59" column="8" selection-start-line="59" selection-start-column="6" selection-end-line="59" selection-end-column="8" />
-          <folding />
+        <state vertical-scroll-proportion="-8.814815">
+          <caret line="53" column="61" selection-start-line="53" selection-start-column="61" selection-end-line="53" selection-end-column="61" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/js/Cell.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="235" column="43" selection-start-line="235" selection-start-column="43" selection-end-line="235" selection-end-column="43" />
+          <caret line="238" column="52" selection-start-line="238" selection-start-column="52" selection-end-line="238" selection-end-column="52" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/BizDataLayer/checkTurn.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/js/gameFunctions.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-51.482758">
-          <caret line="193" column="11" selection-start-line="193" selection-start-column="7" selection-end-line="193" selection-end-column="11" />
+        <state vertical-scroll-proportion="-11.034483">
+          <caret line="101" column="18" selection-start-line="101" selection-start-column="9" selection-end-line="101" selection-end-column="18" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/svcLayer/game/gameUtil.php">
+    <entry file="file://$PROJECT_DIR$/js/ajaxFunctions.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="79.84615">
-          <caret line="37" column="9" selection-start-line="37" selection-start-column="9" selection-end-line="37" selection-end-column="9" />
-          <folding />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="30" column="19" selection-start-line="30" selection-start-column="9" selection-end-line="30" selection-end-column="19" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+            <marker date="1450127808141" expanded="true" signature="1805:1815" placeholder="..." />
+            <marker date="1450127808141" expanded="true" signature="5759:5769" placeholder="..." />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -759,29 +828,33 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/BizDataLayer/gameData.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-10.461538">
-          <caret line="16" column="30" selection-start-line="16" selection-start-column="30" selection-end-line="16" selection-end-column="30" />
+        <state vertical-scroll-proportion="-17.0">
+          <caret line="26" column="68" selection-start-line="26" selection-start-column="68" selection-end-line="26" selection-end-column="68" />
           <folding>
-            <marker date="1450110208788" expanded="true" signature="463:550" placeholder="UPDATE bs_ga... " />
-            <marker date="1450110208788" expanded="true" signature="469:503" placeholder="INSERT INTO bs_game..." />
-            <marker date="1450110208788" expanded="true" signature="469:518" placeholder="INSERT INTO bs_game..." />
-            <marker date="1450110208788" expanded="true" signature="1151:1200" placeholder="SELECT playe..bs_game..." />
-            <marker date="1450110208788" expanded="true" signature="1757:1827" placeholder="UPDATE bs_ga..." />
-            <marker date="1450110208788" expanded="true" signature="2385:2455" placeholder="SELECT playe..bs_game..." />
-            <marker date="1450110208788" expanded="true" signature="2982:3063" placeholder="UPDATE bs_ga..." />
+            <marker date="1450128254994" expanded="true" signature="463:550" placeholder="UPDATE bs_ga... " />
+            <marker date="1450128254994" expanded="true" signature="469:503" placeholder="INSERT INTO bs_game..." />
+            <marker date="1450128254994" expanded="true" signature="469:518" placeholder="INSERT INTO bs_game..." />
+            <marker date="1450128254994" expanded="true" signature="1159:1208" placeholder="SELECT playe..bs_game..." />
+            <marker date="1450128254994" expanded="true" signature="1765:1835" placeholder="UPDATE bs_ga..." />
+            <marker date="1450128254994" expanded="true" signature="2393:2463" placeholder="SELECT playe..bs_game..." />
+            <marker date="1450128254994" expanded="true" signature="2990:3071" placeholder="UPDATE bs_ga..." />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/js/ajaxFunctions.js">
+    <entry file="file://$PROJECT_DIR$/game.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="1.9281437">
-          <caret line="164" column="22" selection-start-line="164" selection-start-column="22" selection-end-line="164" selection-end-column="22" />
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-            <marker date="1450110443745" expanded="true" signature="1455:1465" placeholder="..." />
-            <marker date="1450110443745" expanded="true" signature="5129:5139" placeholder="..." />
-          </folding>
+        <state vertical-scroll-proportion="-6.4615383">
+          <caret line="42" column="9" selection-start-line="42" selection-start-column="9" selection-end-line="42" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/svcLayer/game/gameUtil.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-3.5119047">
+          <caret line="37" column="9" selection-start-line="37" selection-start-column="9" selection-end-line="37" selection-end-column="9" />
+          <folding />
         </state>
       </provider>
     </entry>

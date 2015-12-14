@@ -231,7 +231,13 @@ Cell.prototype={
         cir.setAttributeNS(null, "cx", SHIPSBOARDX + this.x + this.size/2);
         cir.setAttributeNS(null, "cy", SHIPSBOARDY + this.y + this.size/2);
         cir.setAttributeNS(null, "r", this.size/2 - 4);
-        cir.setAttributeNS(null, "fill", "orange");
+		if(this.occupied){
+            //this cell is occupied, so the opponents shot was a hit
+            cir.setAttributeNS(null, "fill", "red");
+        }
+        else {
+            cir.setAttributeNS(null, "fill", "yellow");
+        }
 
         document.getElementsByTagName("svg")[0].appendChild(cir);
     },

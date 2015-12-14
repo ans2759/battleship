@@ -33,8 +33,17 @@ function fpCallback(data) {
 		//handle errors
 	}
 	else{
-        //turn = 0; //it is no longer my turn
         checkTurnAjax(-1);
+
+        //ships can no longer be moved
+        var svg = document.getElementsByTagName("svg")[0];
+        svg.removeEventListener('mousemove',move,false);
+        svg.removeEventListener('mouseup',stopDrag,false);
+        for(var i = 0; i < pieceArrLen; i++) {
+            document.getElementById(pieceArr[i].id).removeEventListener()
+        }
+        $(".water").off("mouseover", highlight);
+
     }
 }
 
@@ -70,11 +79,12 @@ function callbackcheckTurn(data){
         if(turn != 1) {
             //get data from last turn
             getMoveAjax();
-            console.log(turn);
         }
         turn = data[1];
         $("#messages").append("Your turn <br/>");
-		setTimeout(function () {
+        if(turnClear2 && turnClear2 != 0)
+            clearTimeout(turnClear2);
+		turnClear1 = setTimeout(function () {
 			checkTurnAjax();
 		}, 3000);
 		/*$(".shot").on("mouseover", function() {
@@ -85,9 +95,11 @@ function callbackcheckTurn(data){
 	}
 	else {
 		//not turn
+        if(turnClear1 && turnClear1 != 0)
+            clearTimeout(turnClear1);
         console.log("elsey");
         //turn = 0;
-		setTimeout(function () {
+		turnClear2 = setTimeout(function () {
 			checkTurnAjax(-1);
 		}, 2000);
 	}
@@ -133,23 +145,24 @@ function fireCallback (data) {
 			alert("YOU WIN!!!");
 		}
 
-		$("#status").html("opp ships: " + oppHealth);
+		$("#opp_ships").html(oppHealth);
 
 		//$("#messages").append(hits + " hits");
         var hLen = hits.length,
 				sLen = shotsArr.length;
         if(hLen > 0) {
+            var prev_shots = $("#prev_shots").html("");
             for (var i = 0; i < sLen; i++) {
 				var hit = false;
                 for (var j = 0; j < hLen; j++) {
                     if (hits[j] == shotsArr[i].substr(11)) {
-						$("#gameInfo").append("hit on : " + hits[j] + "<br/>");
+						prev_shots.append("hit on : " + hits[j] + "<br/>");
                         document.getElementById("shots_cell_" + hits[j]).style.fill = "red";
 						hit = true;
                     }
                 }
 				if(!hit) {
-					$("#gameInfo").append("miss on: " + shotsArr[i] + "<br/>");
+					prev_shots.append("miss on: " + shotsArr[i] + "<br/>");
 					document.getElementById(shotsArr[i]).style.fill = "blue";
 				}
             }
@@ -157,11 +170,13 @@ function fireCallback (data) {
         else {
             //no hits
             for (var i = 0; i < sLen; i++) {
+                console.log("shots_cell_"+hits[i]);
                 if(hits[i]) {
-                    document.getElementById("shots_cell_" + hits[j]).style.fill = "blue";
+                    document.getElementById("shots_cell_" + shotsArr[i]).style.fill = "blue";
                 }
             }
         }
+        $("#targeting").html("");
         shotsArr = [];
         turn = 0;
 	}
@@ -230,12 +245,13 @@ function getMoveAjax(gameId){
 //callback for getMoveAjax
 ////////////////
 function callbackGetMove(data){
-    console.log(data);
     if(!data) {
         //error
     }
     else {
+        //update your ship count
         shotsArrLen = parseInt(data[0]);
+        $("#your_ships").html(shotsArrLen);
         if(data[1]) {
             var oppShots = data[1].split("|");
             for (var i = 0; i < oppShots.length; i++) {

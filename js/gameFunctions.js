@@ -16,6 +16,8 @@ var shotsArrLen = 5;
 var totalShots = new Array();
 var turn = 0;
 var gameNumber = 14;
+var turnClear1 = 0;;
+var turnClear2 = 0;;
 
 				
 function start(){
@@ -23,7 +25,6 @@ function start(){
 	document.getElementsByTagName('svg')[0].addEventListener('mousemove',move,false);
 	//add listner to entire svg background to drop
 	document.getElementsByTagName('svg')[0].addEventListener('mouseup',stopDrag,false);
-	//document.getElementsByTagName('body')[0].addEventListener('mouseup',stopDrag,false);
 
 
 	//build a group to put the board into...
@@ -193,6 +194,7 @@ function addShot(cellId){
 	//if it is my turn and I still have shots remaining
 	if(turn === 1 && shotsArr.length < shotsArrLen && shotsArr.indexOf(cellId) === -1) {
 		shotsArr.push(cellId);
+		$("#targeting").append(cellId + "<br/>");
 		$("#"+cellId).css("fill", "yellow").click(removeShot);
 		if(shotsArr.length === shotsArrLen) {
 			$("#fire").show().click(fireAjax).css("cursor", "pointer");
@@ -202,6 +204,10 @@ function addShot(cellId){
 
 function removeShot (evt) {
 	shotsArr.splice(shotsArr.indexOf(evt.target.id), 1);
+	var target = $("#targeting").html("");
+	$.each(shotsArr, function(i){
+		target.append(shotsArr[i] + "<br/>");
+	});
 	evt.target.style.fill = "white";
 	evt.target.removeEventListener("click", removeShot);
 }

@@ -24,7 +24,7 @@ function setBoardData($gameId, $playerId, $board, $ships)  {
         }
     }
     catch (Exception $e) {
-        log_error($e, $sql, array($gameId, $playerId, $board));
+        log_error($e, $sql, array($gameId, $playerId, $board, $ships));
         return false;
     }
 }

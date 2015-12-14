@@ -381,4 +381,7 @@ echo "</pre>";*/
 /*echo "<pre>";
 var_dump(fireShots("14~shots_cell_00|shots_cell_02|shots_cell_03|shots_cell_04|shots_cell_05", $_SERVER['REMOTE_ADDR'], $_COOKIE['token']));
 echo "</pre>";*/
+echo "<pre>";
+var_dump(finalizePosition("nsships_cell_00,nsships_cell_01,nsships_cell_02,nsships_cell_03,nsships_cell_04", $_SERVER['REMOTE_ADDR'], $_COOKIE['token']));
+echo "</pre>";
 ?>

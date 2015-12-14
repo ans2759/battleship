@@ -85,26 +85,7 @@
     
     <!-- Make the background, some new here!-->
     <rect x="0px" y="0px" width="100%" height="100%" id="background" />
-<!--    <text x="20px" y="20px" id="youPlayer" fill="orange">
-        You are red:
-    </text>
-    <text x="270px" y="20px" id="nyt" fill="red" display="none">
-        NOT YOUR TURN!
-    </text>
-    <text x="270px" y="20px" id="nyp" fill="red" display="none">
-        NOT YOUR PIECE!
-    </text>
-    <text x="520px" y="20px" id="opponentPlayer">
-        Opponent is green:
-    </text>
-    <text x="650px" y="150px" id="output">
-        cell id
-    </text>
-    <text x="650px" y="190px" id="output2">
-        piece id
-    </text> -->
 
- 
     <g id="finalize">
         <rect x="650px" y="220px" height="50px" width="110px" fill="red" stroke="blue" stroke-width="3" rx="20" ry="20"></rect>
         <text class="bText" x="657px" y="245px" fill="blue">Finalize Ships</text>
@@ -125,6 +106,13 @@
     <input id="chatText" type="text" />
     <button type="button" id="sendChat" >SEND MESSAGE</button>
 </form>
-<div id="gameInfo"></div>
+<div id="gameInfo">
+    <table>
+        <tr><td>Your Ships:</td><td id="your_ships"></td></tr>
+        <tr><td>Opponent Ships:</td><td id="opp_ships"></td></tr>
+        <tr><td>Previous Shots: </td><td id="prev_shots"></td></tr>
+        <tr><td>Firing at: </td><td id="targeting"></td></tr>
+    </table>
+</div>
 </body>
 </html>
