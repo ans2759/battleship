@@ -33,8 +33,8 @@ function fpCallback(data) {
 		//handle errors
 	}
 	else{
-        turn = 0; //it is no longer my turn
-        checkTurnAjax(turn);
+        //turn = 0; //it is no longer my turn
+        checkTurnAjax(-1);
     }
 }
 
@@ -70,8 +70,9 @@ function callbackcheckTurn(data){
         if(turn != 1) {
             //get data from last turn
             getMoveAjax();
+            console.log(turn);
         }
-		turn = 1;
+        turn = data[1];
         $("#messages").append("Your turn <br/>");
 		setTimeout(function () {
 			checkTurnAjax();
@@ -84,7 +85,8 @@ function callbackcheckTurn(data){
 	}
 	else {
 		//not turn
-        turn = 0;
+        console.log("elsey");
+        //turn = 0;
 		setTimeout(function () {
 			checkTurnAjax(-1);
 		}, 2000);
@@ -121,6 +123,7 @@ function fireAjax () {
 }
 
 function fireCallback (data) {
+    console.log(data);
 	if(data) {
 		var oppHealth = data[0],
 				hits = data[1];
@@ -159,6 +162,8 @@ function fireCallback (data) {
                 }
             }
         }
+        shotsArr = [];
+        turn = 0;
 	}
 }
 

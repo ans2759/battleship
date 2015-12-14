@@ -9,11 +9,11 @@ require_once("/home/ans2759/Sites/759/battleship/BizDataLayer/chatData.php");
 function setBoardData($gameId, $playerId, $board, $ships)  {
     global $mysqli;
     // will need to be changed to update when game init is done
-    $sql = "INSERT INTO bs_game SET gameId = ?, player = ?, board = ?, ships = ?, finalized = 1";
+    $sql = "UPDATE bs_game SET  board = ?, ships = ?, finalized = 1 WHERE gameId = ? AND player = ?";
 
     try {
         if($stmt=$mysqli->prepare($sql)){
-            $stmt->bind_param("iiss", $gameId, $playerId, $board, $ships);
+            $stmt->bind_param("ssii", $board, $ships, $gameId, $playerId);
             $stmt->execute(); 
             return $mysqli->affected_rows;
             $stmt->close();

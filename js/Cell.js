@@ -233,7 +233,7 @@ Cell.prototype={
         cir.setAttributeNS(null, "r", this.size/2 - 4);
         cir.setAttributeNS(null, "fill", "orange");
 
-        document.getElementsByTagName(svg)[0].appendChild(cir);
+        document.getElementsByTagName("svg")[0].appendChild(cir);
     },
 	PI:3.1415697
 }

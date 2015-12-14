@@ -272,7 +272,7 @@ function fireShots($d, $ip, $token) {
             //we have updated shots and ships boards, send to db
             if(setGameData($gameId, $opp->player, $boardStr, $shipStr)) {
                 //game data updated, it is no longer your turn
-                if(setTurnData($you->player, $gameId, $data[0])) {
+                if(setTurnData($_SESSION['user_id'], $gameId, $data[1])) {
                     //success
                     return json_encode(array($oppHealth, $hits));
                 }
