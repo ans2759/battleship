@@ -3,124 +3,48 @@
 <head>
   <meta charset="UTF-8"/>
   <title>Log In</title>
-  <script src="http://code.jquery.com/jquery-latest.js"></script>
-  <script src="http://cdn.jsdelivr.net/jquery.validation/1.14.0/jquery.validate.js"></script>
-  <script>
-  $(document).ready(function(){
-      var but  = document.getElementById("submit_form");
-      but.addEventListener("click", loginValidate);
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="css/styles.css" />
 
-      var show = document.getElementById("show");
-      show.addEventListener("click", showCreate);
 
-      var hide = document.getElementById('hide');
-      hide.addEventListener("click", showHide);
-
-      document.getElementById("submit_user").addEventListener("click", createUser);
-  });
-
-  function showCreate(evt){
-      evt.target.style.display = "none";
-      document.getElementById("login_form").style.display = "none";
-      document.getElementById("create_user").style.display = "block";
-      document.getElementById("hide").style.display = "block";
-  }
-
-  function showHide(evt){
-      evt.target.style.display = "none";
-      document.getElementById("login_form").style.display = "block";
-      document.getElementById("create_user").style.display = "none";
-      document.getElementById("show").style.display = "block";
-  }
-
-   function loginValidate(){
-    var n = document.getElementById("uName").value;
-    var p = document.getElementById("pWord").value;
-    var json = '{ "n" : "' + n + '", "p" : "' + p + '"}';
-    
-    ajaxCall("POST",{method:"login",a:"login", data: json}, callbackLogin);
-   }
-
-  function callbackLogin(data, status){
-      if(data != -1){
-        location.href = "./room.html";
-      }
-      else{
-        failedLogin();
-      }
-  }
-
-  function createUser(){
-      var u = document.getElementById("newUser").value,
-              p = document.getElementById("pass").value,
-              cp = document.getElementById("cPass").value;
-
-      var json = '{ "u" : "' + u + '" , "p" : "' + p + '" , "cp" : "' + cp + '"}';
-
-      ajaxCall("POST", {method: "createUser", a: "login", data: json}, callbackCreateUser);
-  }
-
-  function callbackCreateUser(data, status) {
-      if(data === 1){
-          location.href = "./room.html";
-      }
-  }
-
-  function ajaxCall(GetPost,d,callback){
-    $.ajax({
-        type: GetPost,
-        async: true,
-        cache:false,
-        url: "mid.php",
-        data: d,  
-        dataType: "json",
-        success: callback
-    });
-  }
-
-  //handle failed login
-  function failedLogin(){
-    
-  }
-  </script>
-
-  <style>
-  form { 
-    margin: 10px;
-  }
-
-  #create_user, #hide{
-    display: none;
-  }
-
-  </style>
 </head>
 <body>
-  <form id="login_form" method="post" onsubmit="return loginValidate();">
-    <label for="uName">User: </label>
-      <input type="text" name="uName" id="uName" required/> 
-    <label for="pWord">Password: </label>
-      <input type="text" name="pWord" id="pWord" required/>
-    <input type="hidden" name='method' value="login" />
-    <button type="button" id="submit_form">Login</button>
+<div class="container">
+  <form id="login_form" method="post" class="form-signin" onsubmit="return loginValidate();">
+      <h2 class="form-signin-heading">Please Sign-in</h2>
+      <div class="form-group">
+        <label class="sr-only" for="uName">User: </label>
+        <input type="text" name="uName" id="uName" class="form-control" placeholder="Username" required/>
+      </div>
+      <div class="form-group">
+        <label for="pWord" class="sr-only">Password: </label>
+        <input type="password" name="pWord" id="pWord" class="form-control" placeholder="Password" required/>
+      </div>
+          <input type="hidden" name='method'  value="login" />
+    <button type="button" id="submit_form" class="btn btn-lg btn-primary btn-block">Login</button>
+      <button type="button" class="btn btn-lg btn-warning btn-block" id="show">Create new user</button>
   </form>
-  <script>
-    $("#login_form").validate();
-  </script>
-  <form id="create_user">
-    <label for="newUser">Username: </label>
-      <input type="text" name="newUser" id="newUser" />
-    <label for="pass">Password: </label>
-      <input type="text" name="pass" id="pass" />
-    <label for="cPass">Confirm PW: </label>
-      <input type="text" name="cPass" id="cPass" />
-    <button type="button" id="submit_user">Create</button>
+  <form id="create_user" class="form-signin">
+      <div class="form-group">
+        <label for="newUser" class="sr-only">Username: </label>
+        <input type="text" name="newUser" id="newUser" class="form-control" placeholder="Username" required/>
+      </div>
+      <div class="form-group">
+        <label for="pass" class="sr-only">Password: </label>
+        <input type="password" name="pass" id="pass" class="form-control" placeholder="Password" required/>
+      </div>
+      <div class="form-group">
+        <label for="cPass" class="sr-only">Confirm PW: </label>
+        <input type="password" name="cPass" id="cPass" class="form-control" placeholder="Confirm Password" required/>
+      </div>
+      <button type="button" id="submit_user" class="btn btn-lg btn-success btn-block">Create</button>
+      <button type="button" class="btn btn-lg btn-info btn-block" id="hide">Login as existing</button>
   </form>
-  <script>
-      $("#create_user").validate();
-  </script>
+    <p class="text-muted" id="form_warn"></p>
   <br/><br/>
-  <button type="button" id="show">Create new user</button>
-  <button type="button" id="hide">Login as existing</button>
+</div>
+
+<script src="http://code.jquery.com/jquery-latest.js"></script>
+<script src="js/login.js"></script>
 </body>
 </html>

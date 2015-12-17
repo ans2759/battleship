@@ -2,6 +2,8 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="css/styles.css" />
   <script src="http://code.jquery.com/jquery-latest.js"></script>
   <script src="js/ajaxFunctions.js"></script>
   <title>Chat Room</title>
@@ -32,38 +34,58 @@
 
   </script>
 
-  <style>
-    #pagewrap {
-      width: 100%;
-      max-width: 700px;
-    }
-
-    #text {
-      height:50%;
-      max-height: 500px;
-        overflow: auto;
-    }
-
-    #textInput {
-      float: left;
-    }
-
-    #users {
-      float: right;
-    }
-  </style>
 </head>
-<body onload="">
-<div id="pagewrap">
-  <div id="text">
-  </div>
-  <div id="textInput">
-    <input type="text" name="chatText" id="chatText" />
-    <input type="button" name="sendChat" id="sendChat" value="ENTER"/>
-    <input type="button" name="logout" id="logout" value="LOG OUT" />
-  </div>
-  <div id="users">
-  </div>
-</div>  
+<body>
+<div class="container">
+    <div class="row " style="padding-top:40px;">
+        <div class="col-md-8">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    Battleship Main Chat Room
+                </div>
+                <div class="panel-body" id="chat_cont">
+                    <ul class="media-list" id="chat_body">
+                        <!--messages dynamically added here-->
+                    </ul>
+                </div>
+                <div class="panel-footer">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Enter Message" name="chatText" id="chatText" />
+                        <span class="input-group-btn">
+                            <button class="btn btn-info" type="button" name="sendChat" id="sendChat">SEND</button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    ONLINE USERS
+                    <p>Click username to Challenge</p>
+                    <div class="input-group">
+                        <span class="input-group-btn">
+                            <button type="button" name="logout" id="logout" class="btn btn-warning pull-right" >LOG OUT</button>
+                        </span>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <ul class="media-list" id="active_users">
+                    </ul>
+                </div>
+            </div>
+            <div class="panel panel-danger">
+                <div class="panel-heading">
+                    Challenges
+                </div>
+                <!--set id of challenge as id of div???-->
+                <div class="panel-body">
+                    <ul class="media-list" id="challenge_list">
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 </html>

@@ -1,42 +1,9 @@
 <?php
 //ALL game goes in this folder
-/*function checkTurn($d,$ip,$token){
-	//check the token, should they be here?
-	
-	//if so...
-	//split the data?  $d=gameId|userId
-	$h=explode('|',$d);
-	$gameId=$h[0];
-	$userId=$h[1];
-	
-	//go to the data layer and actually get the data I want
-	require_once('BizDataLayer/checkTurn.php');
-	echo(checkTurnData($gameId,$userId));
-}
-
-function changeTurn($d,$ip,$token){
-	//check the token, should they be here?
-	//change the turn.... (when?)
-	
-	//if so...
-	//split the data?  $d=gameId|userId
-	$h=explode('|',$d);
-	$gameId=$h[0];
-	$userId=$h[1];
-	
-	//go to the data layer and actually get the data I want
-	require_once('BizDataLayer/changeTurn.php');
-	changeTurnData($gameId,$userId);//would change the turn in the db
-	
-	//now what?
-	checkTurn($d,$ip,$token);
-}*/
-
 require_once("/home/ans2759/Sites/759/battleship/svcLayer/login/token.php");
 require_once("/home/ans2759/Sites/759/battleship/BizDataLayer/gameData.php");
 
 function finalizePosition($d, $ip, $token) {
-	$gameId = 14;
 	//check token
 	if(!checkToken($ip, $token)) {
 		return "verification_error";
@@ -48,7 +15,9 @@ function finalizePosition($d, $ip, $token) {
 		//token verified. Continue...
 
 		//parse ship data
-		$arr = explode(",", $d);
+        $data = explode("~", $d);
+        $gameId = $data[0];
+		$arr = explode(",", $data[1]);
 		if(count($arr) != 5) {
 			//do we have 5 ships?
 			return "ship_local_error";
@@ -127,7 +96,6 @@ function finalizePosition($d, $ip, $token) {
 				}
 			}
 			else {
-				//data error
 				return "ship_local_error";
 			}
 		}
@@ -144,25 +112,58 @@ function finalizePosition($d, $ip, $token) {
 		}
 		
 		//we have our board string and shipt location string, so lets send it to DB
-		if(setBoardData($gameId, $_SESSION['user_id'], $boardStr, $shipStr) > 0) {
-			//board is set proceed
-			return 1;
-		}
-		else {
-			//error setting board data in DB
-			return -1;
-		}
+        setBoardData($gameId, $_SESSION['user_id'], $boardStr, $shipStr);
+
+        //check if opponent has finalized board
+        /*$res = json_decode(getGameData($gameId));
+        if(count($res) == 0){
+            return "no db";
+        }
+        $test = true;
+        foreach($res as $player) {
+            if($player->finalized != 1) {
+                $test = false;
+            }
+            if($player->player == $_SESSION['user_id']){
+                //you
+                $you = $player;
+            }
+            else {
+                $opp = $player;
+            }
+        }
+        if($test) {
+            //both players are ready
+            if(makeTurnData($opp->player, $gameId) > 0) {
+                //opponent was ready first, so it will be their turn
+                return 1;
+            }
+            else {
+                return $opp->player . "error";
+            }
+        }
+        else {
+            //opp isn't ready yet
+            return 1;
+        }*/
 	}
 }
 
-function checkTurn($d, $ip, $token) {
-	$gameId = 14;
+echo "<pre>";
+var_dump(finalizePosition("10156721abbe8310~nsships_cell_80,nsships_cell_01,nsships_cell_02,nsships_cell_03,nsships_cell_04", $_SERVER['REMOTE_ADDR'], $_COOKIE['token']));
+echo "</pre>";
+//var_dump(makeTurnData(109, "10156721abbe8310"));
+
+function checkTurn($data, $ip, $token) {
 	//check token
 	if(!checkToken($ip, $token)) {
 		return "verification_error";
 	}
 	else {
-		if($d == -1) {// -1 signifies it is not my turn on client
+        $data = explode("|", $data);
+        $d = $data[0];
+        $gameId = $data[1];
+		if($d == 0) {// 0 signifies it is not my turn on client
 			$turn = 0;
 			//it is not my turn, so I will check the DB to see if it has changed
 			$turnData = json_decode(checkTurnData($gameId));
@@ -192,9 +193,8 @@ function fireShots($d, $ip, $token) {
 		$ROWS = 10;
 		$COLS = 10;
 		$data = explode("~", $d);
-		$gameId = $data[0];
 		$shots = explode("|", $data[1]);
-
+        $gameId = $data[0];
 		//we need to retrieve game data to check against shots
 		$game = json_decode(getGameData($gameId));
 		foreach($game as $player) {
@@ -358,10 +358,9 @@ function getMove($d, $ip, $token) {
     //need to start session if we don't check token
     session_start();
     //retrieve updated game info from DB
-    $gameId = $d;
+    $gameId = filter_var($d, FILTER_SANITIZE_STRING);
     $game = json_decode(getGameData($gameId));
     foreach($game as $player) {
-        //return $player->ships;
         if($player->player == $_SESSION['user_id']) {
             //these are your boards
           $you = $player;
@@ -371,8 +370,36 @@ function getMove($d, $ip, $token) {
             $opp = $player;
         }
     }
+    if($yourHealth = checkShipsArray(buildShipsArr($you->ships)) == 0){
+        //you lose
+        endGame($opp->player, $_SESSION['user_id'], $gameId);
+    }
     //return the number of ships you have left and the previous round of shots fired by opponent
-    return json_encode(array(checkShipsArray(buildShipsArr($you->ships)), $opp->shots));
+    return json_encode(array($yourHealth, $opp->shots));
+}
+
+function endGame($win, $los, $gameId) {
+    if(!checkToken($_SERVER['REMOTE_ADDR'], $_COOKIE['token'])) {
+        return "verification_error";
+    }
+    else {
+        //check to make sure this hasn't been ended already
+        $game = getGameData($gameId);
+        foreach($game as $player){
+            if($player->gameOver == 1){
+                return -1;
+            }
+        }
+        //end game in DB
+        if(endGameData($gameId) > 0) {
+
+            //update wins
+            addWinData($win);
+
+            //update loss
+            addLossData($los);
+        }
+    }
 }
 
 /*echo "<pre>";
@@ -381,7 +408,6 @@ echo "</pre>";*/
 /*echo "<pre>";
 var_dump(fireShots("14~shots_cell_00|shots_cell_02|shots_cell_03|shots_cell_04|shots_cell_05", $_SERVER['REMOTE_ADDR'], $_COOKIE['token']));
 echo "</pre>";*/
-echo "<pre>";
-var_dump(finalizePosition("nsships_cell_00,nsships_cell_01,nsships_cell_02,nsships_cell_03,nsships_cell_04", $_SERVER['REMOTE_ADDR'], $_COOKIE['token']));
-echo "</pre>";
+//var_dump(checkShipsArray(buildShipsArr("00,10|01,11,21|02,12,22|03,13,23,33|04,14,24,34,44")));
+
 ?>

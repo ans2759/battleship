@@ -15,9 +15,7 @@ var shotsArr = new Array();
 var shotsArrLen = 5;
 var totalShots = new Array();
 var turn = 0;
-var gameNumber = 14;
-var turnClear1 = 0;;
-var turnClear2 = 0;;
+var positionsfinalized = false;
 
 				
 function start(){
@@ -30,11 +28,11 @@ function start(){
 	//build a group to put the board into...
 	var shotsEle=document.createElementNS(svgns,'g');
 	shotsEle.setAttributeNS(null,'transform','translate('+SHOTSBOARDX+','+SHOTSBOARDY+')');
-	shotsEle.setAttributeNS(null,'id','shots_'+gameId);
+	shotsEle.setAttributeNS(null,'id','shots_');
 
 	var shipsEle=document.createElementNS(svgns,'g');
 	shipsEle.setAttributeNS(null,'transform','translate('+SHIPSBOARDX+','+SHIPSBOARDY+')');
-	shipsEle.setAttributeNS(null,'id','ships_'+gameId);
+	shipsEle.setAttributeNS(null,'id','ships_');
 	
 	//stick on the board....
 	document.getElementsByTagName('svg')[0].appendChild(shotsEle);
@@ -45,7 +43,7 @@ function start(){
 	for(i=0;i<ROWS;i++){
 		shotsBoardArr[i]=new Array();
 		for(j=0;j<COLS;j++){
-			shotsBoardArr[i][j]=new Cell(document.getElementById('shots_'+gameId),'shots_cell_'+i+j,CELLSIZE,i,j);
+			shotsBoardArr[i][j]=new Cell(document.getElementById('shots_'),'shots_cell_'+i+j,CELLSIZE,i,j);
 		}
 	}
 
@@ -53,7 +51,7 @@ function start(){
 	for(i=0;i<ROWS;i++){
 		shipsBoardArr[i]=new Array();
 		for(j=0;j<COLS;j++){
-			shipsBoardArr[i][j]=new Cell(document.getElementById('ships_'+gameId),'ships_cell_'+i+j,CELLSIZE,i,j);
+			shipsBoardArr[i][j]=new Cell(document.getElementById('ships_'),'ships_cell_'+i+j,CELLSIZE,i,j);
 		}
 	}
 
@@ -74,10 +72,6 @@ function startDrag(id){
 			}
 		}
 	}
-	//get my original position and record it...
-	////////////Needs Work!	
-	/*myX=document.getElementById(id).getAttributeNS(null,'cx');
-	myY=document.getElementById(id).getAttributeNS(null,'cy');*/
 
 	//for the translate...
 	xy = getTransform(id);
@@ -88,20 +82,16 @@ function startDrag(id){
 		
 function move(evt){
 	//console.log(evt);
-	if(mover!=''){
-		//I should be dragging something! (id)
-		//setTransform(mover, evt.clientX, evt.clientY);
+	if(mover!='' && !positionsfinalized){
 		setTransform(mover, evt.layerX, evt.layerY);
-		//checkHover(mover, evt.layerX, evt.layerY);
 
-		//var piece = getPiece(pieceId);
 		$(".water").on("mouseover", highlight);
 	}
 }
 
 function highlight(evt){
 	//console.log(evt.target.id);		
-	if(mover != '') {
+	if(mover != ''&& !positionsfinalized) {
 		//parse id to obtain reference to hovered cell
 		var i = evt.target.id.substr(11,1);
 		var j = evt.target.id.substr(12,1);
@@ -110,14 +100,8 @@ function highlight(evt){
 }
 function stopDrag(evt){
 	evt.target.removeEventListener(evt, highlight, false);
-	if(mover!=''){
-		if(turn == playerId) {
-			var hit = checkHit(evt.layerX, evt.layerY, mover);
-		}
-		else {
-			var hit = false;
-			//nytwarning();
-		}
+	if(mover!=''&& !positionsfinalized){
+        var hit = checkHit(evt.layerX, evt.layerY, mover);
 
 		if(hit == true) {
 			//check ships array to see if all ships have been placed
@@ -138,51 +122,25 @@ function stopDrag(evt){
 			//move back
 			setTransform(mover, myX, myY);
 		}
-
-		/*var me=document.getElementById(mover);
-		var curX=parseInt(me.getAttributeNS(null,'cx'));
-		var curY=parseInt(me.getAttributeNS(null,'cy'));
-		var hit=checkHit(curX, curY);
-		if(hit){
-			//? call the cell and put me to center?
-		}else{
-			////////////Needs Work!	
-			//put back to original loc
-			me.setAttributeNS(null,'cx',myX);
-			me.setAttributeNS(null,'cy',myY);
-		}*/
 		mover='';
 	}
 }
 
-
 function checkHit(x,y,which){
 	//lets change the x and y coords (mouse) to match the transform
 	x=x-SHIPSBOARDX;
-	y=y-SHIPSBOARDY;	
+	y=y-SHIPSBOARDY;
 	//go through ALL of the board
 	for(i=0;i<ROWS;i++){
 		for(j=0;j<COLS;j++){
 			var drop = shipsBoardArr[i][j].myBBox;
-			//document.getElementById('output2').firstChild.nodeValue+=x +":"+drop.x+"|";
-			//console.log("x:"+ x + " drop.x:" + drop.x +" drop.width:"+drop.width + " Y:"+y+" drop.y:"+ drop.y+" drop.heaight:"+drop.height+" droppable?:"+ shipsBoardArr[i][j].droppable + " occupied?:" +shipsBoardArr[i][j].occupied);
-			//console.dir(shipsBoardArr[i][j]);
 			if(x>drop.x && x<(drop.x+drop.width) && y>drop.y && y<(drop.y+drop.height) && shipsBoardArr[i][j].droppable && shipsBoardArr[i][j].occupied == '' && shipsBoardArr[i][j].checkDrop(which)){
-				//NEED - check is it a legal move???
-				//console.log("hit on: " + shipsBoardArr[i][j].id);
-
-				//if it is - then
 				//put me to the center....
 				setTransform(which,shipsBoardArr[i][j].getCenterX(),shipsBoardArr[i][j].getCenterY());
 
 				//fill the new cell
 				getPiece(which).place(shipsBoardArr[i][j].id,i,j);
 
-				//change other's board 
-				//changeBoardAjax(which,i,j,'changeBoard',gameId);
-				
-				//change who's turn it is
-				//changeTurn();
 				return true;
 			}	
 		}
@@ -226,19 +184,11 @@ function getPiece(id) {
 	return pieceArr[index];
 }
 
-/*function getCell(id) {
-	var i = parseInt(id.substr(11, 1)),
-		j = parseInt(id.substr(12,1));
-	return shotsBoardArr[i][j];
-}*/
 function getCell(id) {
 	var i = parseInt(id.substr(11, 1)),
 			j = parseInt(id.substr(12,1));
 	return shipsBoardArr[i][j];
 }
-
-
-//getShipsCell()
 			
 ////get Transform/////
 //	look at the id of the piece sent in and work on it's transform
@@ -258,36 +208,3 @@ function getTransform(id) {
 function setTransform(id, x, y) {
 	document.getElementById(id).setAttributeNS(null, 'transform', 'translate('+x+','+y+')');
 }
-
-
-////change turn////
-//	change who's turn it is
-//////////////////
-
-
-/////////////////////////////////Messages to user/////////////////////////////////
-
-
-////nytwarning (not your turn)/////
-//	tell player it isn't his turn!
-////////////////
-/*function nytwarning(){
-	if(document.getElementById('nyt').getAttributeNS(null,'display') == 'none'){
-		document.getElementById('nyt').setAttributeNS(null,'display','inline');
-		setTimeout('nytwarning()',2000);
-	}else{
-		document.getElementById('nyt').setAttributeNS(null,'display','none');
-	}
-}
-
-////nypwarning (not your piece)/////
-//	tell player it isn't his piece!
-////////////////
-function nypwarning(){
-	if(document.getElementById('nyp').getAttributeNS(null,'display') == 'none'){
-		document.getElementById('nyp').setAttributeNS(null,'display','inline');
-		setTimeout('nypwarning()',2000);
-	}else{
-		document.getElementById('nyp').setAttributeNS(null,'display','none');
-	}
-}*/

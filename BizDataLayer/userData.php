@@ -1,5 +1,6 @@
 <?php
 require_once("/home/ans2759/dbCon.php");
+require_once("utilData.php");
 require_once('exception.php');
 
 function storeNewUser($DBuser, $DBpass){
@@ -39,6 +40,23 @@ function checkUsername($user){
         log_error($e, $sql, null);
         //return false;
         echo 'fail';
+    }
+}
+
+function getUsernameData($id) {
+    global $mysqli;
+
+    $sql = "SELECT userName FROM bs_users WHERE userId = ?";
+    try{
+        if($stmt = $mysqli->prepare($sql)) {
+            $stmt->bind_param("i", $id);
+            return returnJson($stmt);
+            $stmt->close();
+            $mysqli->close();
+        }
+    }catch (Exception $e) {
+        log_error($e, $sql, null);
+        return false;
     }
 }
 
