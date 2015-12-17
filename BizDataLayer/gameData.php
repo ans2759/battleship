@@ -6,6 +6,13 @@ require_once("/home/ans2759/Sites/759/battleship/BizDataLayer/exception.php");
 require_once("/home/ans2759/Sites/759/battleship/BizDataLayer/utilData.php");
 require_once("/home/ans2759/Sites/759/battleship/BizDataLayer/chatData.php");
 
+/**
+ * @param $gameId
+ * @param $playerId
+ * @param $board
+ * @param $ships
+ * @return bool
+ */
 function setBoardData($gameId, $playerId, $board, $ships)  {
     global $mysqli;
     // will need to be changed to update when game init is done
@@ -29,8 +36,10 @@ function setBoardData($gameId, $playerId, $board, $ships)  {
     }
 }
 
-
-///////////
+/**
+ * @param $game
+ * @return bool|string
+ */
 function checkTurnData($game) {
     global $mysqli;
     $sql = "SELECT player, turn FROM bs_game WHERE gameId = ?";
@@ -53,6 +62,12 @@ function checkTurnData($game) {
 }
 
 
+/**
+ * @param $user
+ * @param $game
+ * @param $shots
+ * @return bool
+ */
 function setTurnData($user, $game, $shots) {
     global $mysqli;
     $sql = "UPDATE bs_game SET turn = 0, shots = ? WHERE gameId = ? AND player = ?";
@@ -75,6 +90,10 @@ function setTurnData($user, $game, $shots) {
     }
 }
 
+/**
+ * @param $game
+ * @return bool|string
+ */
 function getGameData($game) {
     global $mysqli;
     $sql = "SELECT player, board, ships, shots, turn, finalized, gameOver FROM bs_game WHERE gameId = ?";
@@ -96,6 +115,13 @@ function getGameData($game) {
     }
 }
 
+/**
+ * @param $game
+ * @param $player
+ * @param $board
+ * @param $ships
+ * @return bool
+ */
 function setGameData ($game, $player, $board, $ships) {
     global $mysqli;
     $sql = "UPDATE bs_game SET board = ?, ships = ?, turn = 1 WHERE gameId = ? AND player = ?";
@@ -118,6 +144,11 @@ function setGameData ($game, $player, $board, $ships) {
     }
 }
 
+/**
+ * @param $p
+ * @param $game
+ * @return bool
+ */
 function initiateGameData($p, $game) {
     global $mysqli;
     $sql = "INSERT INTO bs_game SET gameId = ?, player = ?";
@@ -140,6 +171,11 @@ function initiateGameData($p, $game) {
     }
 }
 
+/**
+ * @param $player
+ * @param $game
+ * @return bool
+ */
 function makeTurnData($player, $game) {
     global $mysqli;
     $sql = "UPDATE bs_game SET turn = 1 WHERE gameId = ? AND player = ?";
@@ -162,6 +198,10 @@ function makeTurnData($player, $game) {
     }
 }
 
+/**
+ * @param $game
+ * @return bool
+ */
 function endGameData($game) {
     global $mysqli;
     $sql = "UPDATE bs_game SET gameOver = 1 WHERE gameId = ?";
@@ -184,6 +224,10 @@ function endGameData($game) {
     }
 }
 
+/**
+ * @param $id
+ * @return bool
+ */
 function addWinData($id) {
     global $mysqli;
     $sql = "UPDATE bs_users SET wins = wins + 1 WHERE userId = ?";
@@ -206,9 +250,13 @@ function addWinData($id) {
     }
 }
 
+/**
+ * @param $id
+ * @return bool
+ */
 function addLossData($id) {
     global $mysqli;
-    $sql = "UPDATE bs_user SET losses = losses + 1 WHERE userId = ?";
+    $sql = "UPDATE bs_users SET losses = losses + 1 WHERE userId = ?";
 
     try {
         if($stmt=$mysqli->prepare($sql)){
@@ -227,4 +275,5 @@ function addLossData($id) {
         return false;
     }
 }
+
  ?>

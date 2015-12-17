@@ -168,6 +168,8 @@ function fireCallback (data) {
         $("#targeting").html("");
         shotsArr = [];
         turn = 0;
+        $("#nyt").show();
+        $("#yt").hide();
 	}
 }
 
@@ -323,9 +325,10 @@ function createChallengeAjax(id) {
 }
 
 function callbackCreateChallenge(data, status) {
-    console.log("create cb: " + data + ", "+status);
     if(data) {
-        location.href = "./game.php?gameId=" + data;
+        //location.href = "./game.php?gameId=" + data;
+        alert("Challenge Sent");
+        checkChallengeAjax(data);
     }
 }
 
@@ -334,8 +337,20 @@ function acceptChallengeAjax(id) {
 }
 
 function callbackAcceptChallenge(data) {
-    console.log(data);
     if(data) {
+        location.href = "./game.php?gameId=" + data[0].gameId;
+    }
+}
+
+function checkChallengeAjax(data) {
+    ajaxCall("GET", {method: "checkChallenge", a:"chat", data:data}, callbackCheckChallenge);
+    setTimeout(function(){
+        checkChallengeAjax(data);
+    }, 5000);
+}
+
+function callbackCheckChallenge(data) {
+    if(data[0].accepted === 1) {
         location.href = "./game.php?gameId=" + data[0].gameId;
     }
 }
@@ -360,7 +375,10 @@ function callbackGetMove(data){
     }
     else {
         //update your ship count
-        shotsArrLen = parseInt(data[0]);
+        if(positionsfinalized)
+            shotsArrLen = parseInt(data[0]);
+        else
+            shotsArrLen = 5;
         if(shotsArrLen === 0) {
             //you lost
             $("#myModalLabel").html = "You Lose! Your fleet was destroyed";

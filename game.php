@@ -1,5 +1,5 @@
 <?php
-   $gameId = htmlentities(preg_replace("/[^a-zA-Z ]*/", "", $_GET['gameId']), ENT_QUOTES, "utf-8");
+   $gameId = filter_var($_GET['gameId'], FILTER_SANITIZE_STRING);
 ?>
 <!DOCTYPE html>
 <html lang="en">

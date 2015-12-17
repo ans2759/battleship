@@ -14,10 +14,22 @@ function finalizePosition($d, $ip, $token) {
 		$COLS = 10;
 		//token verified. Continue...
 
+
+
 		//parse ship data
         $data = explode("~", $d);
-        $gameId = $data[0];
+        $gameId = filter_var($data[0], FILTER_SANITIZE_STRING);
 		$arr = explode(",", $data[1]);
+
+		//have we already finalized???
+		$game = json_decode(getGameData($gameId));
+		foreach($game as $player) {
+			if($player->player == $_SESSION['user_id'] && $player->finalized == 1) {
+				//we have already finalized this board
+				return -1;
+			}
+		}
+
 		if(count($arr) != 5) {
 			//do we have 5 ships?
 			return "ship_local_error";
@@ -115,7 +127,7 @@ function finalizePosition($d, $ip, $token) {
         setBoardData($gameId, $_SESSION['user_id'], $boardStr, $shipStr);
 
         //check if opponent has finalized board
-        /*$res = json_decode(getGameData($gameId));
+        $res = json_decode(getGameData($gameId));
         if(count($res) == 0){
             return "no db";
         }
@@ -145,13 +157,13 @@ function finalizePosition($d, $ip, $token) {
         else {
             //opp isn't ready yet
             return 1;
-        }*/
+        }
 	}
 }
 
-echo "<pre>";
-var_dump(finalizePosition("10156721abbe8310~nsships_cell_80,nsships_cell_01,nsships_cell_02,nsships_cell_03,nsships_cell_04", $_SERVER['REMOTE_ADDR'], $_COOKIE['token']));
-echo "</pre>";
+/*echo "<pre>";
+var_dump(finalizePosition("10156721abbe8310~nsships_cell_00,nsships_cell_01,nsships_cell_02,nsships_cell_03,nsships_cell_04", $_SERVER['REMOTE_ADDR'], $_COOKIE['token']));
+echo "</pre>";*/
 //var_dump(makeTurnData(109, "10156721abbe8310"));
 
 function checkTurn($data, $ip, $token) {
@@ -252,10 +264,10 @@ function fireShots($d, $ip, $token) {
                                     array_push($hits, $shotConcat);
                                     break;
                                 }
-                                /*else {
+                                else {
                                     //shot was a miss
                                     array_push($hits, $shotConcat . "|" . 0);
-                                }*/
+                                }
                             }
                             //we shot at this spot, mark it as so
                             $boardArr[$row][$col] = 2;
@@ -370,7 +382,8 @@ function getMove($d, $ip, $token) {
             $opp = $player;
         }
     }
-    if($yourHealth = checkShipsArray(buildShipsArr($you->ships)) == 0){
+	$yourHealth = checkShipsArray(buildShipsArr($you->ships));
+    if($yourHealth == 0){
         //you lose
         endGame($opp->player, $_SESSION['user_id'], $gameId);
     }
@@ -402,12 +415,5 @@ function endGame($win, $los, $gameId) {
     }
 }
 
-/*echo "<pre>";
-var_dump(getMove(14, $_SERVER['REMOTE_ADDR'], $_COOKIE['token']));
-echo "</pre>";*/
-/*echo "<pre>";
-var_dump(fireShots("14~shots_cell_00|shots_cell_02|shots_cell_03|shots_cell_04|shots_cell_05", $_SERVER['REMOTE_ADDR'], $_COOKIE['token']));
-echo "</pre>";*/
-//var_dump(checkShipsArray(buildShipsArr("00,10|01,11,21|02,12,22|03,13,23,33|04,14,24,34,44")));
 
 ?>

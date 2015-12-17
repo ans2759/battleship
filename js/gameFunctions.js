@@ -161,13 +161,16 @@ function addShot(cellId){
 }
 
 function removeShot (evt) {
-	shotsArr.splice(shotsArr.indexOf(evt.target.id), 1);
+    var targId = evt.target.id;
+	shotsArr.splice(shotsArr.indexOf(targId), 1);
 	var target = $("#targeting").html("");
 	$.each(shotsArr, function(i){
 		target.append(shotsArr[i] + "<br/>");
 	});
 	evt.target.style.fill = "white";
-	evt.target.removeEventListener("click", removeShot);
+	evt.target.addEventListener("click", function(){
+        addShot(targId);
+    })
 }
 
 
